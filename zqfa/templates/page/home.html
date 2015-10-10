@@ -30,14 +30,14 @@
                           <h1>Quantitative Finance Club<h1>
                         </p>
                         {% if current_user.is_authenticated() %}
-                            <p class="text-center">
-                                <a href="{{ url_for('members.index') }}" class="btn btn-success btn-lg">
-                                See members</a>
-                            </p>
+                        <p class="text-center">
+                          <a href="{{ url_for('members.index') }}" class="btn btn-success btn-lg">
+                          See members</a>
+                        </p>
                         {% else %}
-                            <p class="text-center">
-                                <a class="btn btn-success btn-lg btn-register" href="{{ url_for('user.become_member') }}">Become a member</a>
-                            </p>
+                        <p class="text-center">
+                          <a class="btn btn-success btn-lg btn-register" href="{{ url_for('user.become_member') }}">Become a member</a>
+                        </p>
                         {% endif %}
                     </div>
                 </div>
