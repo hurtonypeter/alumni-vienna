@@ -389,7 +389,7 @@ ul.horizontal-list {
     font-weight: bolder;
     font-size: 60px; }
   #intro .btn-register {
-    margin: 2em 0; }
+    margin: 0 0 2em 0; }
 
 .join-button-holder {
   text-align: center;
