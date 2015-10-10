@@ -4,7 +4,7 @@
     {{ super() }}
 {% endblock html %}
 
-{% block title %}QFIN{% endblock %}
+{% block title %}QFIN CLUB{% endblock %}
 
 {% block styles %}
     {{ super() }}
@@ -50,6 +50,7 @@
                     {# <li><a href="{{ url_for('page.about') }}">About</a></li>
                     <li><a href="{{ url_for('page.advisory') }}">Advisory Board</a></li> #}
                     <li><a href="{{ url_for('events.index') }}">Events</a></li>
+                    <li><a href="{{ url_for('shop.index') }}">Shop</a></li>
 
                     {% if current_user.is_authenticated() %}
                         {% if current_user.is_active()  %}
