@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block login %}
+    &nbsp;
+{% endblock %}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1 container-white">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-3">
+                    <h3>Login to your account</h3>
+                </div>
+            </div>
+            <div class="row" id="login">
+                <div class="col-sm-6 col-sm-offset-3">
+                    {{ quick_form(form, form_type='horizontal', role="login")}}
+                </div>
+                <a href="{{ url_for("user.request_password_reset") }}">Forgot Password?</a>
+            </div>
+        </div>
+    </div>
+
+<h2>Overview</h2>
+
+    <p>
+      Sign in to view your public timeline and to tweet from this
+      example application.
+    </p>
+    <p>
+      <a href="{{ url_for('user.login') }}">
+          Sign in with LinkedIn
+      </a>
+    </p>
+{% endblock page_content %}

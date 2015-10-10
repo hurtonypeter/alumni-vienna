@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title -%}
+    Member of the ZQFA - {{ super() }}
+{%- endblock %}
+
+{% block scripts %}
+  {{ super() }}
+<script src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+
+<script type="text/javascript">
+$(document).ready(function() {
+    //$('table#new-members').dataTable();
+
+     $('table#activated-members').dataTable({
+        "pagingType": "simple_numbers",
+        "order": [[1, "asc" ]],
+        "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]]
+        });
+} );
+</script>
+
+{% endblock %}}
+
+{% block styles %}
+
+    {{ super() }}
+
+    <style>
+        .members tr > *:nth-child(1) {
+            white-space:nowrap;
+        }
+        .members th {
+            white-space:nowrap;
+        }
+        .pagination {
+            font-size: 45%
+        }
+        #activated-members_filter {
+            text-align: right;
+        }
+
+
+    </style>
+{% endblock styles %}
+
+{% block page_content %}
+    <div class="page-header">
+        <h1>Members of the ZQFA</h1>
+    </div>
+
+    {% if current_user.has_role('ROLE_ADMIN') and not_active %}
+        <h3>Not activated users</h3>
+        <table id="new-members" class="table members table-striped table-bordered" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Class of</th>
+                <th>Last Login</th>
+                <th>Registered</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in not_active %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>
+                        <a href="{{ url_for('members.profile', user_id=user.id) }}">{{ user.name }}</a>
+                        <a href="mailto:{{ user.email }}"><span class="fa-envelope-o fa"></span></a>
+                    </td>
+                    <td>{{ user.classof }}</td>
+                    <td>{{ user.last_login.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td>{{ user.registered.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td>
+                        {% if user.activated %}
+                            <form method="post" action="{{ url_for('members.deactivate', user_id=user.id) }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button class="btn" type="submit">Deactivate</button>
+                            </form>
+                        {% else %}
+                            <form method="post" action="{{ url_for('members.activate', user_id=user.id) }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button class="btn btn-primary" type="submit">Activate</button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <hr>
+    {% endif %}
+
+
+
+
+    <table id="activated-members" class="table members table-striped table-bordered" cellspacing="0" width="100%"">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Class of</th>
+            <th>Location</th>
+            <th>Industry</th>
+            <th>Company</th>
+            <th>Position</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for member in members %}
+            <tr>
+                <td>
+                    <img src="{{ member.small_picture_url }}" width="60" height="60">
+                    <a href="{{ url_for('members.profile', user_id=member.id) }}">{{ member.name }}</a>
+                </td>
+                <td>{{ member.classof }}</td>
+                <td>{{ member.location }}</td>
+                <td>{{ member.industry }}</td>
+                <td>{% for position in member.positions %}{% if position.is_current %}{{ position.company }}{% endif %}{% endfor %}</td>
+                <td>{% for position in member.positions %}{% if position.is_current %}{{ position.title }}{% endif %}{% endfor %}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}

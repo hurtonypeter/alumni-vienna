@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title -%}
+  Events - {{ super() }}
+{%- endblock %}
+
+{% block page_content %}
+  {% if current_user.is_authenticated() and current_user.has_role('ROLE_ADMIN') %}
+    <div class="page-navigation clearfix">
+      <a href="{{ url_for('events.new') }}" class="btn btn-primary pull-right">
+        <span class="fa fa-plus-circle"></span> Add event
+      </a>
+    </div>
+  {% endif %}
+
+  <div class="page-header">
+    <h1>Events</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-md-offset-1 col-md-10">
+
+      <p>Starting in early 2015 we will hold quarterly meetings in a casual setting in Zurich. These events will be open for all ZQFA members, as well as for students and alumni interested in becoming a member.</p>
+
+      <p>Furthermore we will have talks by industry and academic experts on an irregular schedule. Announcements will be made here.</p>
+
+      {% for event in events %}
+        {% if event.visibility <= levels.visibility %}
+          <div class="event-item">
+            <h3>
+              <a href="{{ url_for('events.show', event_hash=event.hash) }}">{{ event.title }}</a>
+              <small>
+              {% if event.open_for <= 1 %}
+              {% elif event.open_for <= 2 %}
+                <span class="label label-warning">ONLY MEMBERS</span>
+              {% else %}
+                <span class="label label-danger">ONLY ADMINS</span>
+              {% endif %}
+              </small>
+            </h3>
+
+            <div>
+              <span class="sr-only">Time:</span>
+              <span class="fa fa-clock-o"></span>
+              {{ event.start_date.strftime('%A, %b %d at %H:%M') }}
+            </div>
+            <div class="event-description markdown-container">
+              {{ event.description_html|striptags|truncate(160, True) }}
+            </div>
+            <hr>
+          </div>
+        {% endif %}
+      {% endfor %}
+
+      {% if past_events %}
+        <a href="#" name="past-events" id="past-events"></a>
+        <h3>
+          Past events
+        </h3>
+        <ul>
+          {% for event in past_events %}
+            {%- if event.visibility <= levels.visibility -%}
+              <li>
+                <span class="sr-only">Time:</span>
+                <span class="fa fa-clock-o"></span>
+                {{ event.start_date.strftime('%A, %b %d at %H:%M') }}: <a href="{{ url_for('events.show', event_hash=event.hash) }}">{{ event.title }}</a>
+              </li>
+            {%- endif -%}
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+
+{% endblock page_content %}

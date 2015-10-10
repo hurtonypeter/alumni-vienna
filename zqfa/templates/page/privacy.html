@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title -%}
+    Data Privacy - {{ super() }}
+{%- endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Data Privacy</h1>
+</div>
+
+
+<p>We guarantee careful treatment of your personal data. We will treat it with high confidentiality and collect and process it according to this guideline.</p>
+<p>By using our services you consent that we may treat and collect your data according to this guideline.</p>
+
+
+<h2>Collection & storage</h2>
+<p>By using the website the following usage data may be collected and stored by us:</p>
+<ul>
+    <li>Data, which are needed for your registration (Linkedin authorization, name, email, position, location) as well as service-specific adjustments (e.g. your preferences) and data that you provide on a voluntary basis</li>
+    <li>Data, which arise via usage of the website but which are not actively disclosed (e.g. your browser, your operating system and your IP-address)</li>
+</ul>
+<p>There will be no forwarding of data to third parties.</p>
+
+
+<h2>Cookies</h2>
+<p>During the usage of our website zqfa.ch, permanent cookies and session-cookies will be created locally on your computer. Session-cookies are being deleted when closing the browser. Permanent cookies are being created when logging-in and make sure that you will be recognized when visiting our website again.</p>
+
+
+<h2>Deletion of your account & information on your data</h2>
+<p>If you would like to delete your account please send us an e-mail to <a href="mailto:gereon@zqfa.ch">gereon@zqfa.ch</a> containing the e-mail address belonging to your account at our website.</p>
+<p>You are authorized to receive information on your own data storage by us. To do so, again please send us your request to
+    <a href="mailto:gereon@zqfa.ch">gereon@zqfa.ch</a>.</p>
+
+
+<h2>Consent to changes</h2>
+<p>Our current data privacy is valid under <a href="{{ url_for('page.privacy') }}">{{ url_for('page.privacy') }}</a>.</p>
+<p>Please check the data privacy regularly. By continuous use of our services you agree to possible changes in our data privacy.</p>
+{% endblock page_content %}

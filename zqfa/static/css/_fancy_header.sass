@@ -1,0 +1,44 @@
+.fancy-header
+  background: green
+  color: #FFFFFF
+  text-align: center
+  padding: 60px 0 40px 0
+  position: relative
+  min-height: 280px
+  h1
+    font-size: 80px
+    font-weight: bolder
+    font-style: italic
+    margin-bottom: 20px
+    text-align: center
+    top: 0
+  .lsp
+    +animation(lsp3 1s ease forwards)
+    //letter-spacing: 50px
+
+  p
+    font-size: 24px
+    font-weight: 300
+
++keyframes(lsp3)
+  0%
+    margin-top: -100px
+    opacity: 0
+  100%
+    margin-top: 0px
+    opacity: 1
+
+.greenish
+  +linear-gradient(#729A61,#269776,#729A61)
+
+.violettish
+  +linear-gradient(#605BDE,#5372C7,#605BDE)
+
+.blueish
+  +linear-gradient(#0D52A1,#3091A7,#0D52A1)
+
+.redish
+  +linear-gradient(#D3697D,#C64A56,#C64A56)
+
+.orangeish
+  +linear-gradient(#FAA23C,#D46F1F,#FAA23C)

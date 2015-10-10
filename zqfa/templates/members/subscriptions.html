@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title -%}
+    Manage your subscriptions - {{ super() }}
+{%- endblock %}
+
+{% block page_content %}
+    <div class="page-header">
+        <h1>Subscriptions</h1>
+    </div>
+
+
+    <p>Decide which information you want to receive from us.
+        If you unsubscribe from all emails you will only receive emails
+        directly related to your membership in the club.
+    </p>
+    <form class="form" method="POST">
+        {{ form.hidden_tag() }}
+        {% for field in form %}
+            {% if field.type in ['CSRFTokenField', 'HiddenField'] %}
+                {{ field() }}
+            {% elif field.type not in ['SubmitField'] %}
+                <div class="form-group {% if field.errors %}error{% endif %}">
+                    <div class="checkbox">
+                        <label>
+                            {{ field() }} {{ field.label }}
+                        </label>
+                        {% if field.errors or field.help_text %}
+                            <span class="help-inline">
+                                {% if field.errors %}
+                                    {{ field.errors|join(' ') }}
+                                {% else %}
+                                      {{ field.help_text }}
+                                {% endif %}
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        {{ wtf.form_field(form.submit, button_map={'submit':'primary btn-lg'}) }}
+    </form>
+{% endblock %}
