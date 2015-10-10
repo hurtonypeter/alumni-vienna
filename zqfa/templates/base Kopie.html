@@ -50,7 +50,7 @@
                     {# <li><a href="{{ url_for('page.about') }}">About</a></li>
                     <li><a href="{{ url_for('page.advisory') }}">Advisory Board</a></li> #}
                     <li><a href="{{ url_for('events.index') }}">Events</a></li>
-					<li>Shop</li>
+
                     {% if current_user.is_authenticated() %}
                         {% if current_user.is_active()  %}
                             <li><a href="{{ url_for('jobs.index') }}">Jobs</a></li>
