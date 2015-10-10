@@ -47,7 +47,7 @@
             </div>
             <div class="collapse navbar-collapse nav-top" id="collapsed">
                 <ul class="nav navbar-nav pull-left">
-                    <li><a href="{{ url_for('page.about') }}">Shop</a></li>
+                    <li><a href="{{ url_for('page.shop') }}">Shop</a></li>
                     {# <li><a href="{{ url_for('page.advisory') }}">Advisory Board</a></li> #}
                     <li><a href="{{ url_for('events.index') }}">Events</a></li>
                     {% if current_user.is_authenticated() %}
