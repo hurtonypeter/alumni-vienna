@@ -1,0 +1,81 @@
+.navbar-user
+  float: right
+  .navbar-img
+    height: 40px
+    width: 40px
+    margin: -10px 0 0 9px
+    float: right
+
+.navbar
+  margin-bottom: 0
+  border-radius: 0
+  border: 0
+  font-size: 16px
+  z-index: 50
+
+  .navbar-form label
+    display: none
+
+  .navbar-form-login
+    margin-top: 0
+    margin-bottom: 0
+
+  .active
+    background: #dfdfdf
+
+  .navbar-nav
+    margin: 0
+
+
+.navbar-inverse
+  background: lighten(#060B25, 5)
+
+.navbar-inverse .navbar-nav
+  &> .active
+    &> a
+      background: darken(#060b25,3)
+
+.navbar-inverse .navbar-nav > li > a
+  color: #f3f3f3
+
+.navbar-brand
+  font-weight: bolder
+  font-size: 20px
+
+
+.navigation
+  .navbar-nav > li > a
+    padding-top: 15px
+    padding-bottom: 15px
+
+.nav-top
+  float: left
+
+.subpage-nav
+  width: 100%
+  .navbar
+    text-align: center
+    background: #efefef
+    .navbar-nav
+      display: inline-block
+      float: none
+      > li > a
+        color: #333
+  &.affix
+    top: 0
+    z-index: 10
+
+@media (max-width: $screen-xs-max)
+  .nav-top
+    position: absolute
+    left: 150px
+    z-index: 100
+    background: #f8f8f8
+
+  .subpage-nav
+    .nav
+      > li
+        display: inline-block
+        > a
+          display: inline-block
+          padding: 15px 10px

@@ -1,0 +1,14 @@
+.navbar {
+  margin-bottom: 0px;
+  border-radius: 0;
+  border: 0; }
+
+.navbar-form label, .form-filter .form-group label {
+  display: none; }
+
+.navbar-default .container {
+  background-color: transparent; }
+.navbar-default a.navbar-brand {
+  color: white; }
+
+/*# sourceMappingURL=navbar.css.map */

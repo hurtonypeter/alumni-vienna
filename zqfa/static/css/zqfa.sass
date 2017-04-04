@@ -1,0 +1,153 @@
+@import _mixins
+@import _variables
+
+
+html
+  height: 100%
+
+body
+  background: #fff
+  font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', Arial, Verdana, sans-serif
+  height: 100%
+  font-size: $default-font-size
+
+h1,h2,h3,h4,h5,h6
+  font-weight: 300
+h1
+  font-size: $h1-font-size
+h2
+  font-size: $h2-font-size
+  margin: 1.8em 0 1em 0
+h3
+  font-size: $h3-font-size
+  margin: 1.8em 0 1em 0
+h4
+  font-size: $h4-font-size
+  margin: 1.8em 0 1em 0
+h5
+  font-size: $h5-font-size
+  margin: 1.8em 0 1em 0
+
+p
+  text-align: justify
+  margin: 0 0 1em 0
+
+ul
+  margin: 0 0 1em 0
+
+a, .btn-link
+  +transition(color, 0.5s, ease)
+
+a:hover, .btn-link:hover
+  text-decoration: none
+  color: darkblue
+
+.page-header
+  text-align: center
+
+ul.horizontal-list
+  list-style-type: none
+  margin-left: 0
+  padding-left: 0
+  li
+    display: inline
+  li + li:before // +: only applies to li which follow another li
+    content: " · "
+  &.wide
+    li
+      margin-right: .5em
+    li
+      text-indent: .5em
+
+.light
+  color: #999
+  font-weight: 200
+
+.main-wrapper
+  margin-top: 40px
+  margin-bottom: 20px
+
+
+#register h2, #profile h2
+  margin-bottom: 40px
+  font-weight: bold
+
+#login
+  margin-top: 40px
+
+
+.default-font-size
+  font-size: $default-font-size
+
+#socials
+  margin: 40px 0px
+  label
+    display: block
+    margin-bottom: 20px
+  img
+    width: 30px
+    height: 30px
+  input
+    width: 60%
+  a, .accordion-group, span.in
+    height: 100%
+  .accordion-group, span.in, input
+    display: inline
+
+#photo-file-placeholder
+  margin: 20px 0px
+
+#photo_file
+  margin-top: 100px
+
+
+.btn.register
+  background: rgba(255, 255, 255, 0.1)
+  text-align: center
+  color: #FFF
+  margin: 20px auto
+  font-size: 18px
+  &:hover
+    background: #FFF
+    border-color: #FFF
+    color: #000
+
+.big-btn
+  padding: 3px 5px
+  width: 100%
+  border: 2px solid #333
+  border-radius: 3px
+  color: #333
+
+.big-btn-light
+  color: #f6f6f6
+  border-color: #f3f3f3
+  &:hover
+    background: #FFF
+    border-color: #FFF
+    color: #000
+
+.color-linkedin
+  background-color: #4875B4
+
+.alert
+  border-radius: 0
+
+.intro
+  .alert
+    width: 100%
+    position: absolute
+
+@import _form
+@import _navbar
+@import _button
+@import _footer
+
+@import _fancy_header
+
+@import _home
+@import _user
+@import _event
+@import _job
+@import _admin
+@import _markdown

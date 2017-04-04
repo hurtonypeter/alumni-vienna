@@ -1,0 +1,32 @@
+=keyframes($name)
+  @-webkit-keyframes #{$name}
+    @content
+  @-moz-keyframes #{$name}
+    @content
+  @-ms-keyframes #{$name}
+    @content
+  @keyframes #{$name}
+    @content
+
+
+=animation($str)
+  -webkit-animation: #{$str}
+  -moz-animation: #{$str}
+  -ms-animation: #{$str}
+  -o-animation: #{$str}
+  animation: #{$str}
+
+
+=linear-gradient($top, $bottom, $base)
+  background-color: #{$base}
+  background-image: -webkit-linear-gradient(top, #{$top}, #{$bottom})
+  background-image:    -moz-linear-gradient(top, #{$top}, #{$bottom})
+  background-image:      -o-linear-gradient(top, #{$top}, #{$bottom})
+  background-image:         linear-gradient(to bottom, #{$top}, #{$bottom})
+
+
+=transition($property, $duration, $timing, $delay:"")
+  -webkit-transition: $property $duration $timing #{$delay}
+  -moz-transition: $property $duration $timing #{$delay}
+  -o-transition: $property $duration $timing #{$delay}
+  transition: $property $duration $timing #{$delay}

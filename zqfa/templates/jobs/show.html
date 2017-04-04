@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% from "helpers/delete_form.html" import delete %}
+
+{% block title -%}
+    {{ job.title }} - Jobs - {{ super() }}
+{%- endblock %}
+
+{% block page_content %}
+
+{% if current_user.has_role('ROLE_ADMIN') or current_user.id == job.user_id %}
+    <div class="text-center admin-controls">
+        <ul class="horizontal-list">
+            <li><a href="{{ url_for('jobs.edit', job_hash=job.hash) }}"><span class="fa fa-edit"> Edit</a></li>
+            <li>{{ delete(url_for('jobs.delete', job_hash=job.hash)) }}</li>
+        </ul>
+    </div>
+{% endif %}
+
+<div class="page-navigation">
+    <a href="{{ url_for('jobs.index') }}">← Back to all jobs</a>
+</div>
+
+<div class="page-header">
+    <h1>{{ job.title }}</h1>
+    <div class="light">
+        Posted on <span title="Posted on">{{ job.created.strftime('%b %d') }}</span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+        {% if job.company or job.location or job.url %}
+            <ul class="horizontal-list wide">
+                {% if job.company %}
+                    <li class="Company">
+                        <strong>
+                            <span class="sr-only">Company:</span>
+                            <span class="fa fa-building-o"></span>
+                            {{ job.company }}
+                        </strong>
+                    </li>
+                {% endif %}
+                {% if job.location %}
+                    <li title="Location">
+                        <span class="sr-only">Location:</span>
+                        <span class="fa fa-location-arrow"></span>
+                        {{ job.location }}
+                    </li>
+                {% endif %}
+                {% if job.url %}
+                    <li title="More information">
+                        <span class="sr-only">More information:</span>
+                        <span class="fa fa-globe"></span>
+
+                        <a href="{{ job.url }}">{{ job.nice_url }}</a>
+                    </li>
+                {% endif %}
+            </ul>
+        {% endif %}
+
+        <hr>
+
+        <div class="job-description markdown-container">
+            {{ job.description_html|safe }}
+        </div>
+
+        <hr>
+
+        <div class="job-apply">
+            <p>When applying, please mention that you saw this job on ZQFA.</p>
+            <p>
+                The job was posted by: <a href="{{ url_for('members.profile', user_id=job.user_id) }}">{{  job.user.name }}</a>.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock page_content %}

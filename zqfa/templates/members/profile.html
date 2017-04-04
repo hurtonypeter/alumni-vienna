@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title -%}
+  {{ user.name }} - {{ super() }}
+{%- endblock %}
+
+{% block page_content %}
+  <p>
+    {% if user == current_user %}
+      {# TODO <a href="{{ url_for('members.edit') }}" class="btn btn-default">Edit my profile</a>#}
+    {% endif %}
+  </p>
+
+
+  <div class="container fields profile">
+    <div class="row">
+      <div class="col-sm-4">
+        <img src="{{ user.big_picture_url }}" class="img-responsive">
+      </div>
+      <div class="col-sm-8">
+        <div class="row">
+
+          <div class="page-header">
+            <h1 id="profile-name">
+              {{ user.name }}
+            </h1>
+          </div>
+
+          <div class="col-sm-8 col-sm-offset-2">
+            <div class="row">
+              <div class="col-xs-4 col-sm-3">
+                Location
+              </div>
+              <div class="col-xs-8 col-sm-9">
+                {{ user.location }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-4 col-sm-3">
+                Class of
+              </div>
+              <div class="col-xs-8 col-sm-9">
+                {{ user.classof }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-4 col-sm-3">
+                Contact
+              </div>
+              <div class="col-xs-8 col-sm-9">
+                <a href="{{ user.linkedin_url }}"><span class="fa fa-linkedin-square"></span></a>
+                <a href="mailto:{{ user.email }}"><span class="fa fa-envelope-o"></span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    {% if user.upcoming_events %}
+      <div class="user-events">
+        <h3>Going to...</h3>
+        <ul>
+          {% for event in user.upcoming_events %}
+            {%- if event.visibility <= levels.visibility -%}
+              <li>
+                <span class="sr-only">Time:</span>
+                <span class="fa fa-clock-o"></span>
+                {{ event.start_date.strftime('%A, %b %d at %H:%M') }}: <a href="{{ url_for('events.show', event_hash=event.hash) }}">{{ event.title }}</a>
+              </li>
+            {%- endif -%}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    {% if user.positions %}
+      <div class="user-positions">
+        <h3>Positions</h3>
+        {% for position in user.positions %}
+          <div class="row">
+            <div class="col-xs-4 col-sm-3">
+              {% if position.start_year %}
+                {{ position.start_year }}
+                {%- if position.start_month -%}
+                  /{{ position.start_month }}
+                {% endif %}
+              {% endif %}
+              {% if position.end_year %}
+                -
+                {{ position.end_year }}
+                {%- if position.end_month -%}
+                  /{{ position.end_month }}
+                {% endif %}
+              {% else %}
+                - now
+              {% endif %}
+            </div>
+            <div class="col-xs-8 col-sm-9">
+                <p>{{ position.company }} &mdash;
+                {{ position.title }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

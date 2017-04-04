@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <pre>
+    {{ data|pprint(True) }}
+    </pre>
+
+
+    <form method="post">
+        <div class="form-group">
+            <input name="csrf_token" type="hidden" value="{{ csrf_token() }}">
+            <label>Linkedin Parameters</label>
+            <textarea class="form-control" rows="4" name="linkedin">{{ url }}</textarea>
+            <button type="submit" class="btn btn-primary">Send</button>
+        </div>
+    </form>
+{% endblock %}

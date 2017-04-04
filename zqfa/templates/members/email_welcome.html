@@ -1,0 +1,22 @@
+{% extends "email_base_css_inlined.html" %}
+
+{% block subject -%}
+    Welcome to the Zurich QF Alumni
+{%- endblock %}
+
+{% block content %}
+
+    <h1 class="h1">Dear {{ user.firstname }}</h1>
+
+    <h2 class="h2">Your application has been checked
+        and you have been officially been accepted to the ZQFA.</h2>
+    <br>
+    Stay tuned for future events and announcement &mdash; we will keep you posted.<br>
+    <br>
+    Meanwhile make sure that you check out our <a href="https://www.zqfa.ch/members">member database</a> and the <a href="https://www.zqfa.ch/events">upcoming events</a>.
+    <br>
+    <br>
+    Looking forward to see you soon<br>
+    <strong>ZQFA Team</strong>
+
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title -%}
+    Jobs - {{ super() }}
+{%- endblock %}
+
+{% block page_content %}
+    <div class="page-navigation">
+        <a href="{{ url_for('jobs.new') }}" class="btn btn-primary pull-right"><span class="fa fa-plus-circle"></span> Add job</a>
+    </div>
+    <div class="page-header">
+        <h1>Jobs</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <p>Jobs exclusively for members of the ZQFA by other members and industry partners are posted here.</p>
+            {% if jobs %}
+                <ul class="jobs">
+                {% for job in jobs %}
+                    <li class="job">
+                        {% if job.company %}
+                            <span class="company">
+                                {{ job.company }}
+                            </span>
+                        {% endif %}
+                        <span class="job-title">
+                            <a href="{{ url_for('jobs.show', job_hash=job.hash) }}">{{ job.title }}</a>
+                        </span>
+
+                        <div class="pull-right">
+                            <span title="Posted on" class="light">{{ job.created.strftime('%b %d') }}</span>
+                        </div>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% if expired_user_jobs %}
+                <hr>
+                <h3>My Expired Jobs</h3>
+                <ul class="jobs">
+                    {% for job in expired_user_jobs %}
+                        <li class="job">
+                            {% if job.company %}
+                                <span class="company">
+                                    {{ job.company }}
+                                </span>
+                            {% endif %}
+                            <span class="job-title">
+                                <a href="{{ url_for('jobs.show', job_hash=job.hash) }}">{{ job.title }}</a>
+                            </span>
+
+                            <div class="pull-right">
+                                <span title="Posted on" class="light">{{ job.created.strftime('%b %d') }}</span>
+                                <a href="{{ url_for('jobs.repost', job_hash=job.hash) }}" class="btn btn-primary btn-xs">Repost</a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock page_content %}
