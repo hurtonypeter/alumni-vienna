@@ -49,7 +49,7 @@ def new():
         subject = '[ZQFA] New job posting'
         recipient = 'kevin@zqfa.ch'
         msg = Message(subject=subject, recipients=[recipient], body=message, sender=("ZQFA", "info@zqfa.ch"))
-        mail.send(msg)
+        #mail.send(msg)
         return redirect(url_for('jobs.show', job_hash=job.hash))
 
     return render_template('jobs/new.html', form=form)
