@@ -45,7 +45,7 @@ def new():
         flash('Job successfully created.')
 
         # TODO: Make notification configurable
-        message = 'See '+url_for('jobs.show', _external=True)
+        message = 'See '+url_for('jobs.show', job_hash=job.hash, _external=True)
         subject = '[ZQFA] New job posting'
         recipient = 'kevin@zqfa.ch'
         msg = Message(subject=subject, recipients=[recipient], body=message, sender=("ZQFA", "info@zqfa.ch"))
@@ -71,7 +71,7 @@ def edit(job_hash):
         db.session.commit()
 
         flash('Job successfully updated.')
-        return redirect(url_for('jobs.show', job_hash=job.hash))
+        return redirect(url_for('job.show', job_hash=job.hash))
 
     return render_template('jobs/new.html', form=form, job=job)
 
