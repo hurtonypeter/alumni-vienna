@@ -22,10 +22,6 @@ def home():
 @bp.route('/about')
 def about():
     return render_template('page/about.html')
-    
-@bp.route('/shop')
-def shop():
-    return render_template('page/shop.html')
 
 @bp.route('/qf')
 def qf():

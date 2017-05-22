@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title -%}
+    Shop - {{ super() }}
+{%- endblock %}
+
+{% block page_content %}
+
+<div id="myShop"></div>
+
+<script>
+	var spread_shop_config = {
+		shopName: 'qfin',
+		locale: 'de_AT',
+		prefix: '//shop.spreadshirt.at',
+		baseId: 'myShop'
+	};
+</script>
+
+<script type="text/javascript" src="//shop.spreadshirt.at/shopfiles/shopclient/shopclient.nocache.js"></script>
+
+{% endblock page_content %}

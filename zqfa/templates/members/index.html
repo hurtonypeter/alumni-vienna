@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title -%}
-    Member of the ZQFA - {{ super() }}
+    Member of the QFC - {{ super() }}
 {%- endblock %}
 
 {% block scripts %}
@@ -48,7 +48,7 @@ $(document).ready(function() {
 
 {% block page_content %}
     <div class="page-header">
-        <h1>Members of the ZQFA</h1>
+        <h1>Members of the QFC</h1>
     </div>
 
     {% if current_user.has_role('ROLE_ADMIN') and not_active %}
