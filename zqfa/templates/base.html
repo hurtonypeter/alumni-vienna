@@ -54,7 +54,6 @@
                         {% if current_user.is_active()  %}
                             <li><a href="{{ url_for('jobs.index') }}">Jobs</a></li>
                             <li><a href="{{ url_for('members.index') }}">Members</a></li>
-                            <li><a href="{{ url_for('members.subscriptions') }}">Subscriptions</a></li>
                         {% endif %}
                         {% if current_user.has_role('ROLE_ADMIN') %}
                             <li class="dropdown">
@@ -84,6 +83,7 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ url_for('members.profile', user_id=current_user.id) }}">Profile</a></li>
+                                <li><a href="{{ url_for('members.subscriptions') }}">Subscriptions</a></li>
                                 <li class="divider"></li>
                                 <li><a href="{{ url_for('user.logout') }}">Log out</a></li>
                             </ul>
