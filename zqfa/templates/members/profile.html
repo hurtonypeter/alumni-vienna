@@ -6,8 +6,8 @@
 
 {% block page_content %}
   <p>
-    {% if user == current_user %}
-      {# TODO <a href="{{ url_for('members.edit') }}" class="btn btn-default">Edit my profile</a>#}
+    {% if user.id == current_user.id or current_user.has_role('ROLE_ADMIN') %}
+      <a href="{{ url_for('members.edit', user_id=user.id) }}" class="btn btn-default">Edit profile</a>
     {% endif %}
   </p>
 

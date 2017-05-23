@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, abort
 from flask.ext.login import current_user, login_required
 from flask.ext.wtf import Form
 from flask_mail import Message
@@ -7,7 +7,7 @@ from wtforms import fields
 import newsletter
 from . import db, mail
 from .models import User, UserPosition
-from .forms import SubscriptionsForm
+from .forms import SubscriptionsForm, ProfileForm
 from .tools import redirect_back
 from .user import user_active_required, admin_required
 from zqfa.events import get_access_levels
@@ -150,33 +150,22 @@ def subscriptions():
     return render_template('members/subscriptions.html', form=form)
 
 
-# TODO
-# @bp.route('/profile/edit', methods=['GET', 'POST'])
-# @login_required
-# def edit():
-#     # load the correct form
-#
-#     form = ProfileForm(request.form, obj=current_user)
-#
-#     if form.validate_on_submit():
-#         # adapt password if necessary
-#         if form.semester == 0:
-#             current_user.semester = None
-#
-#         if form.password_opt.data:
-#             current_user.set_password(form.password_opt.data)
-#
-#         # now the normal stuff
-#         form.populate_obj(current_user)
-#
-#         # adapt picture if necessary
-#         file = request.files['photo_file']
-#         if file.filename and is_image(file.filename):
-#             current_user.set_file('photo', file)
-#
-#         db.session.commit()
-#
-#         flash('You have your profile successfully edited.', 'success')
-#         return redirect(url_for('members.profile', user_id=current_user.id))
-#
-#     return render_template('user/edit.html', form=form)
+@bp.route('/profile/<int:user_id>/edit', methods = ['GET', 'POST'])
+@login_required
+def edit(user_id):
+    if current_user.id != user_id and not current_user.has_role('ROLE_ADMIN'):
+        abort(403)
+
+    user = User.query.get_or_404(user_id)
+
+    form = ProfileForm(request.form, obj=user)
+
+    if form.validate_on_submit():
+        form.populate_obj(user)
+
+        db.session.commit()
+
+        flash('You have your profile successfully edited.', 'success')
+        return redirect(url_for('members.profile', user_id=current_user.id))
+
+    return render_template('user/edit.html', form=form, user=user)
