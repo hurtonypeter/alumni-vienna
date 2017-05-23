@@ -71,7 +71,7 @@ def edit(job_hash):
         db.session.commit()
 
         flash('Job successfully updated.')
-        return redirect(url_for('job.show', job_hash=job.hash))
+        return redirect(url_for('jobs.show', job_hash=job.hash))
 
     return render_template('jobs/new.html', form=form, job=job)
 
