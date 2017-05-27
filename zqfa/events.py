@@ -8,6 +8,7 @@ from .models import Event
 from .tools import redirect_back
 from .forms import EventForm, DeleteForm
 from .user import admin_required
+import notifications
 
 
 bp = Blueprint('events', __name__)
@@ -122,6 +123,8 @@ def edit(event_hash):
         form.populate_obj(event)
         db.session.commit()
 
+        notifications.event_modified(event)
+
         flash('Event successfully updated.')
         return redirect(url_for('events.show', event_hash=event.hash))
 
@@ -140,6 +143,8 @@ def delete(event_hash):
 
     form = DeleteForm(request.form, event)
     if form.validate_on_submit():
+        notifications.event_deleted(event)
+        
         db.session.delete(event)
         db.session.commit()
 
