@@ -8,7 +8,7 @@ from flask.ext.bootstrap import Bootstrap
 from flask.ext.mail import Mail
 from flask_wtf.csrf import CsrfProtect
 
-import mailchimp
+from mailchimp3 import MailChimp
 
 bootstrap = Bootstrap()
 mail = Mail()
@@ -38,6 +38,7 @@ def create_app():
         app.config['MAIL_DEFAULT_SENDER'] = environ.get('MAIL_DEFAULT_SENDER')
         app.config['MAIL_USE_TLS'] = bool(int(environ.get('MAIL_USE_TLS', False)))
 
+        app.config['MAILCHIMP_USERNAME'] = environ.get('MAILCHIMP_USERNAME')
         app.config['MAILCHIMP_APIKEY'] = environ.get('MAILCHIMP_APIKEY')
 
         app.config['LINKEDIN_CONSUMER_KEY'] = environ.get('LINKEDIN_CONSUMER_KEY')
@@ -65,7 +66,7 @@ def create_app():
     csrf.init_app(app)
 
     global mailchimp_api
-    mailchimp_api = mailchimp.Mailchimp(app.config['MAILCHIMP_APIKEY'])
+    mailchimp_api = MailChimp(app.config['MAILCHIMP_USERNAME'], app.config['MAILCHIMP_APIKEY'])
 
 
     ADMINS = ['gereon@zqfa.ch']
