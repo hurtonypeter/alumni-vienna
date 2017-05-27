@@ -33,6 +33,24 @@
                         </div>
                     </li>
                 {% endfor %}
+                {% if expired_jobs %}
+                    {% for job in expired_jobs %}
+                        <li class="job bg-warning">
+                        {% if job.company %}
+                            <span class="company">
+                                {{ job.company }}
+                            </span>
+                        {% endif %}
+                        <span class="job-title">
+                            <a href="{{ url_for('jobs.show', job_hash=job.hash) }}">{{ job.title }}</a>
+                        </span>
+
+                        <div class="pull-right">
+                            <span title="Posted on" class="light">{{ job.created.strftime('%b %d') }}</span>
+                        </div>
+                    </li>
+                    {% endfor %}
+                {% endif %}
                 </ul>
             {% endif %}
 

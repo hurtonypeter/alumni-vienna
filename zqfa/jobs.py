@@ -17,8 +17,9 @@ bp = Blueprint('jobs', __name__)
 @user_active_required
 def index():
     jobs = Job.query.filter(Job.show_until >= date.today()).order_by(Job.show_until.desc()).all()
+    expired_jobs = Job.query.filter(Job.show_until < date.today()).order_by(Job.show_until.desc()).all()
     expired_user_jobs = Job.query.filter(Job.show_until < date.today()).filter(Job.user_id == current_user.id).order_by(Job.show_until.desc()).all()
-    return render_template('jobs/index.html', jobs = jobs, expired_user_jobs = expired_user_jobs)
+    return render_template('jobs/index.html', jobs = jobs, expired_jobs = expired_jobs, expired_user_jobs = expired_user_jobs)
 
 
 @bp.route('/job/<string:job_hash>/show')
