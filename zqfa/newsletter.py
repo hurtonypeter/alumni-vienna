@@ -1,10 +1,10 @@
 import hashlib
 from mailchimp3 import MailChimp
-
-mailchimp_api = MailChimp('hurtonypeter', '34b8408b528e3928499f700edb7de89e-us15')
+from . import mailchimp_api
 
 def check_connection():
     try:
+        print mailchimp_api
         mailchimp_api.lists.all(get_all=True, fields = "lists.name,lists.id")
         return True
     except:

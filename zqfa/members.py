@@ -95,15 +95,6 @@ def delete(user_id):
         return redirect(url_for('members.index'))
 
     return render_template('members/delete.html', user = u)
-    #name = u.name
-
-    # # TODO CSRF protection
-    # db.session.delete(u)
-    # db.session.commit()
-
-    # flash(name+' has been removed from the database.', 'success')
-
-    # return redirect(url_for('members.index'))
 
 @bp.route('/profile', defaults={'user_id': None})
 @bp.route('/profile/<int:user_id>')
@@ -133,7 +124,7 @@ def subscriptions():
 
     if newsletter.check_connection() is False:
         flash('Service at the moment not available. Please try again later.')
-        redirect_back()
+        return redirect_back()
 
     # Dynamically create form
     lists = newsletter.get_lists()
