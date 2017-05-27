@@ -11,6 +11,7 @@ from .models import User, UserPosition
 from .forms import UserRegistrationForm
 from .tools import redirect_back
 import newsletter
+import notifications
 
 from random import randint
 from sqlalchemy.orm.exc import NoResultFound
@@ -109,8 +110,7 @@ def become_member():
         session.pop('classof', None)
 
         # Inform admin
-        msg = 'See '+url_for('members.index', _external=True)+' to activate.'
-        send_mail('info@zqfa.ch', '[ZQFA] New user '+user.name, msg)
+        notifications.admin_notification_new_user(user)
 
         return redirect(url_for('page.success'))
 
