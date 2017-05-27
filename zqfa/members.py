@@ -82,19 +82,28 @@ def deactivate(user_id):
     return redirect_back()
 
 
-@bp.route('/member/<int:user_id>/delete', methods=["GET"])
+@bp.route('/member/<int:user_id>/delete', methods=["GET", "POST"])
 @admin_required
 def delete(user_id):
     u = User.query.get_or_404(user_id)
-    name = u.name
+    if request.method == 'POST':
+        db.session.delete(u)
+        db.session.commit()
 
-    # TODO CSRF protection
-    db.session.delete(u)
-    db.session.commit()
+        flash(u.name+' has been removed from the database.', 'success')
 
-    flash(name+' has been removed from the database.', 'success')
+        return redirect(url_for('members.index'))
 
-    return redirect(url_for('members.index'))
+    return render_template('members/delete.html', user = u)
+    #name = u.name
+
+    # # TODO CSRF protection
+    # db.session.delete(u)
+    # db.session.commit()
+
+    # flash(name+' has been removed from the database.', 'success')
+
+    # return redirect(url_for('members.index'))
 
 @bp.route('/profile', defaults={'user_id': None})
 @bp.route('/profile/<int:user_id>')
