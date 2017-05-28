@@ -8,11 +8,16 @@ def event_modified(event):
     try:
         emails = [g.email for g in event.guests]
         if len(emails) > 0:
+            html = 'Hello, <br/><br/> the following event has been updated:<br/><br/><strong>' + \
+                event.title + '</strong><br/>' + event.description + \
+                '<br/>Click <a href="' + url_for('events.show', event_hash=event.hash, _external=True) + \
+                '">here</a> to see the events in full on our website.<br/><br/>' + \
+                'We are looking forward to seeing you again soon!<br/><br/>' + \
+                'Best<br/>Your Qfin Club Team'
             msg = Message(
                 subject = 'An event has been updated',
-                recipients=emails,
-                body = 'salalala ',
-                sender= 'qfinclub@gmail.com')
+                bcc = emails,
+                html = html)
             mail.send(msg)
         return True
     except:
@@ -24,9 +29,8 @@ def event_deleted(event):
         if len(emails) > 0:
             msg = Message(
                 subject = 'An event has been canceled',
-                recipients=emails,
-                body = 'nyehehe ',
-                sender= 'qfinclub@gmail.com')
+                bcc=emails,
+                body = 'nyehehe ')
             mail.send(msg)
         return True
     except:
@@ -41,8 +45,7 @@ def admin_notification_new_user(user):
             msg = Message(
                 subject = 'New user',
                 recipients=emails,
-                body = 'See ' + url + ' to activate',
-                sender= 'qfinclub@gmail.com')
+                body = 'See ' + url + ' to activate')
             mail.send(msg)
         return True
     except:
