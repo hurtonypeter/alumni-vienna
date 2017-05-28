@@ -29,3 +29,5 @@ Werkzeug==0.10.4
 wsgiref==0.1.2
 WTForms==2.0.2
 rq==0.8.0
+rq-scheduler==0.7.0
+APScheduler==3.3.1
