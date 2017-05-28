@@ -54,6 +54,10 @@
                         {% if current_user.is_active()  %}
                             <li><a href="{{ url_for('jobs.index') }}">Jobs</a></li>
                             <li><a href="{{ url_for('members.index') }}">Members</a></li>
+<<<<<<< HEAD
+=======
+                            <li><a href="{{ url_for('members.subscriptions') }}">Subscriptions</a></li>
+>>>>>>> 5b7b8c8e686f82f470310bac23e2d803a0dc9044
                         {% endif %}
                         {% if current_user.has_role('ROLE_ADMIN') %}
                             <li class="dropdown">
@@ -61,7 +65,10 @@
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="{{ url_for('members.index') }}">User activation</a></li>
                                     <li><a href="{{ url_for('events.new') }}">Add event</a></li>
+<<<<<<< HEAD
                                     <li><a href="{{ url_for('jobs.new') }}">Add job</a></li>
+=======
+>>>>>>> 5b7b8c8e686f82f470310bac23e2d803a0dc9044
                                 </ul>
                             </li>
                         {% endif %}
@@ -83,7 +90,10 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ url_for('members.profile', user_id=current_user.id) }}">Profile</a></li>
+<<<<<<< HEAD
                                 <li><a href="{{ url_for('members.subscriptions') }}">Subscriptions</a></li>
+=======
+>>>>>>> 5b7b8c8e686f82f470310bac23e2d803a0dc9044
                                 <li class="divider"></li>
                                 <li><a href="{{ url_for('user.logout') }}">Log out</a></li>
                             </ul>
