@@ -1,157 +1,255 @@
 {% extends "base.html" %}
 
-{% block styles %}
-    {{ super() }}
-
-    <style>
-        body {
-            position: relative;
-        }
-        .navigation.navbar {
-            background: transparent;
-        }
-
-        .navigation.navbar-default .navbar-nav > li > a, .navigation.navbar-default .navbar-brand {
-            color: #fff;
-        }
-    </style>
-{% endblock styles %}
-
-{% block body_attribs %} class="intro"{% endblock body_attribs %}
-
 {% block main %}
 
-    <section id="intro" class="colored text-center">
-        <div class="container">
-            <div class="intro-well wow">
-                <div class="row">
-                    <div class="col-lg-12 col-sm-12">
-                        <p class="text-center">
-                            <h1>Quantitative Finance Club QFin</h1>
-                        </p>
-                        {% if current_user.is_authenticated() %}
-                            <p class="text-center">
-                                <a href="{{ url_for('members.index') }}" class="btn btn-success btn-lg">See members</a>
-                            </p>
-                        {% else %}
-                            <p class="text-center">
-                                <a class="btn btn-success btn-lg btn-register" href="{{ url_for('user.become_member') }}">Become a member</a>
-                            </p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="welcome" class="container">
+    <div class="row">
 
-    <div id="subpage-nav" class="subpage-nav">
-        <nav class="navbar">
-            <ul class="nav navbar-nav">
-                <li><a href="#what-is-zqfa">What is QFin?<span class="sr-only">(current)</span></a></li>
-                <li><a href="#we-offer">What do we offer?</a></li>
-                <li><a href="#who-can-join">Who can join?</a></li>
-                <li><a href="#about-the-program">About the Program</a></li>
-                <li><a href="#our-mission">Our Mission</a></li>
-            </ul>
-        </nav>
+    <div class="ws-l"></div>
+    
+    <header class="sec-heading">
+        <h2>Welcome to QFin Club</h2>
+        <span class="subheading">Who we are and what we do</span>
+    </header>
+
+    <div class="col-md-offset-2 col-md-8 text-center ws-m">
+        <p>
+            The Quantitative Finance Club (QFin Club for short) is a 
+            club for alumni and current students of the Master program 
+            Quantitative Finance of Vienna University of Economics and Business. 
+            The club provides a platform for knowledge exchange and networking 
+            opportunities between students, alumni and the financial world. 
+            It is our aim to further strengthen the reputation and impact of 
+            the program in academia and the financial industry.
+        </p>
     </div>
 
-    <section id="what-is-zqfa">
-        <div class="container">
-            <h2 class="text-center">What is QFin?</h2>
-            <div class="row">
-                <div class="col-md-offset-1 col-md-10">
-                    <p>The Quantitative Finance Club (QFin) is a club for alumni and current students of the master programm Quantitative Finance of Vienna University of Economics and Business. The club provides a platform for knowledge exchange and networking opportunities between students, alumni and the financial world. It is our aim  to further strengthen the reputation and impact of the program in academia and the financial industry.</p>
+    </div><!-- / .row -->
+</section>
 
-                    <p>We believe that three factors make this program stand out globally:</p>
-                    <ul>
-                        <li>The strong focus on mathematical theory and computer skills necessary to implement advanced financial models</li>
-                        <li>A rigorous application process to select the brightest and most talented students.</li>
-                        <li>World-class professors such as Prof. Kurt Hornik, member of the R-core developer team, Prof. Frey, co-author of "Quantitative Risk Management: Concepts, Techniques and Tools" and many more</li>
-						<li>Vienna as a Global Financial Centre for Central and Eastern Europe</li>
-                    </ul>
-                </div>
-            </div>
+<section class="container section ft-x">
+    <div class="row">
+    
+    <header class="sec-heading">
+        <h2>WHat do we offer?</h2>
+        <span class="subheading">Knowledge exchange and networking</span>
+    </header>
+
+    <!-- Feature 1 -->
+    <div class="col-lg-4 col-lg-offset-2 wow fadeInLeft" data-wow-duration=".8s">
+        
+        <!-- white space -->
+        <div class="ws-m"></div>
+
+        <!-- Material right aligned - Item 1 -->
+        <div class="col-md-12 no-gap ws-s ft-item ft-material right-align">
+        <div class="ft-content">
+            <h5>Casual meetups</h5>
+            <p>We organize regular casual meetings with current students and alumni in Vienna</p>
         </div>
-    </section>
-
-
-    <section id="we-offer">
-        <div class="container">
-            <h2 class="text-center">What do we offer?</h2>
-            <div class="row">
-                <div class="col-md-offset-1 col-md-10">
-                    <p>The main purpose of the club is to provide a platform for knowledge exchange and networking between students, alumni and members of the financial industry and academia. For our members we offer:</p>
-                    <ul>
-                        <li>Regular casual meetings of students and alumni in Vienna.</li>
-                        <li>Invited talks by industry experts and academic researchers on current topics within the quantitative finance community.</li>
-                        <li>A database of all QFin members including contact information and current employment information.</li>
-                        <li>A job board where companies and alumni can publish job postings exclusively to members of QFin.</li>
-                    </ul>
-
-                    <p>For new students QFin organizes a Kick-Off event at the beginning of the winter term each year. This allows the new cohort of students to benefit from the experiences and lessons learned by their predecessors and to connect with our network from the very beginning.</p>
-
-                    <p>For the local and global financial industry we offer:</p>
-                    <ul>
-                        <li>An efficient way to promote job postings exclusively to the elite pool of our students and alumni. We welcome all level of job vacancies: internship positions, master thesis projects, entry level jobs as well as senior and specialist roles.</li>
-                        <li>The possibility to become an industry partner of Quantitative Finance Club at an attractive rate.  This is a unique opportunity to get in touch with some of the most talented students in the field of quantitative finance.</li>
-                        <li>The chance to promote your company by publicly being associated with the talent pool of the Quantitative Finance Club.</li>
-                    </ul>
-                </div>
-            </div>
+        <div class="ft-icon">
+            <i class="fa fa-hand-peace-o"></i>
         </div>
-    </section>
+        </div><!-- / .ft-item -->
 
-    <section id="who-can-join">
-        <div class="container">
-            <h2 class="text-center">Who can join QFin?</h2>
-            <div class="row">
-                <div class="col-md-offset-1 col-md-10">
-                    <p>As the alumni club of the MSc Quantitative Finance we are open to all current and former students of the program, as well as to the students of its predecessor and the VGSF PhD students Upon decision of the board, the club can give membership to high profile individuals of the academic sciences or the financial industry.</p>
-                </div>
-            </div>
+        <!-- Material right aligned - Item 2 -->
+        <div class="col-md-12 no-gap ws-s ft-item ft-material right-align">
+        <div class="ft-content">
+            <h5>Access to Alumni network</h5>
+            <p>We maintain a database of all QFin members including contact information and current employment</p>
         </div>
-    </section>
-
-
-    <section id="about-the-program">
-        <div class="container">
-            <h2 class="text-center">About the Program</h2>
-            <div class="row">
-                <div class="col-md-offset-1 col-md-10">
-                    <p>The MSc Quantitative Finance is a specialized master degree program offered by the <a href="http://www.wu.ac.at/">Vienna University of Economics and Business (WU)</a>. The program presents an advanced education in the field of quantitative finance. It is an academically rigorous and demanding course with a clear mathematical orientation. With its excellent faculty, the challenging curriculum and a strict selection process the MSc Quantitative Finance is a world-class degree. For more information see the <a href="http://www.wu.ac.at/programs/master/qfin/en/">official program website</a>.</p>
-                </div>
-            </div>
+        <div class="ft-icon">
+            <i class="fa fa-tv"></i>
         </div>
-    </section>
+        </div><!-- / .ft-item -->
 
-    <section id="our-mission">
-        <div class="container">
-            <h2 class="text-center">Our Mission</h2>
-            <div class="row">
-                <div class="col-md-offset-1 col-md-10">
-                    <p>Every year the master program in Quantitative Finance brings a group of up to 60 brilliant students to Vienna. Due to the size and structure of the program the students within one year of study are already well connected. We aim to leverage this potential by building a bridge between all classes of current and previous years.</p>
-                    <p>Bringing together the knowledge and experience of more than a decade of quantitative finance alumni will create value for our current students, as well as for our alumni and the program as a whole. The club will enhance the study experience of our students and reinforce their identification with the program by providing a platform for lifelong networking.</p>
-                    <p>The club is determined to strengthen the brand name MSc Quantitative Finance in the financial and academic world, both locally and around the globe. Through the exchange of knowledge, networking and job postings we want to further develop the reputation and impact of the program in academia and the financial industry.</p>
-                    <p>The club should act in the interest of the students and work closely with the program directors. Another goal is to constantly improve the program to ensure its high level of recognition worldwide.</p>
-                </div>
-            </div>
+    </div><!-- / .col-lg-4 -->      
+
+    <!-- Features Left -->
+    <div class="col-lg-4 wow fadeInRight" data-wow-duration=".8s">
+        
+        <!-- white space -->
+        <div class="ws-m"></div>
+        
+        <!-- Item 3 -->
+        <div class="col-md-12 no-gap ws-s ft-item ft-material">
+        <i class="fa fa-cogs"></i>
+        <h5>Job board</h5>
+        <p>Exclusive job postings for our students by our alumni and partner companies</p>
+        </div><!-- / .ft-item -->
+
+        <!-- Item 4 -->
+        <div class="col-md-12 no-gap ws-s ft-item ft-material">
+        <i class="fa fa-star"></i>
+        <h5>Talks by industry experts</h5>
+        <p>Invited talks by industry experts and academic researchers on current topics within the quantitative finance community</p>
+        </div><!-- / .ft-item -->
+
+    </div><!-- / .col-lg-4 -->
+
+    </div><!-- / .row -->
+</section>
+
+<section class="container">
+    <div class="row">
+
+    <div class="ws-l"></div>
+    
+    <header class="sec-heading">
+        <h2>Who can join?</h2>
+        <span class="subheading">Become a QFin Club Member</span>
+    </header>
+
+    <div class="col-md-offset-2 col-md-8 text-center ws-m">
+        <p>
+            As the alumni club of the MSc Quantitative Finance we 
+            are open to all current and former students of the program, 
+            as well as to the students of its predecessor and the VGSF PhD 
+            students Upon decision of the board, the club can give membership 
+            to high profile individuals of the academic sciences or the financial industry.
+        </p>
+    </div>
+
+    </div><!-- / .row -->
+</section>
+
+<div class="cta-link">
+    <div class="bg-overlay">
+    
+    <div class="cta-wrapper">
+        <h3 class="h-alt wow fadeIn" 
+            data-wow-delay=".1s" 
+            data-wow-duration="1s">Become a Qfin Club member</h3>
+        <a href="{{ url_for('user.become_member') }}" 
+            class="btn btn-light btn-large wow fadeIn" 
+            data-wow-delay=".3s" 
+            data-wow-duration="1s">Sign up</a>
+    </div>
+
+    </div>
+</div>
+
+<section class="container ft-steps-numbers">
+    <div class="row section">
+
+        <header class="sec-heading ws-s">
+        <h2>About the Program</h2>
+        <span class="subheading">3 factors make it stand out</span>
+        </header>
+        
+        <!-- Step 1 -->
+        <div class="col-lg-4 col-md-6 mb-sm-100 ft-item wow fadeIn" 
+            data-wow-duration="1s">
+        <span class="ft-nbr">01</span>
+        <h4>Content</h4>
+        <p>
+            A strong focus on advanced mathematical theory to understand 
+            and programming skills to actually implement sophisticated financial models.
+        </p>
         </div>
-    </section>
+
+        <!-- Step 2 -->
+        <div class="col-lg-4 col-md-6 mb-sm-100 ft-item wow fadeIn" 
+            data-wow-duration="1s" 
+            data-wow-delay=".3s">
+        <span class="ft-nbr">02</span>
+        <h4>Faculty</h4>
+        <p>
+            World-class faculty such as Prof. Kurt Hornik, 
+            a member of the R core developer team, such as Prof. Kurt Hornik, 
+            member of the R-core developer team, Prof. Frey, co-author of 
+            "Quantitative Risk Management: Concepts, Techniques and Tools" and many more
+        </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="col-lg-4 col-md-6 ft-item wow fadeIn" 
+            data-wow-duration="1s" 
+            data-wow-delay=".6s">
+        <span class="ft-nbr">03</span>
+        <h4>Students</h4>
+        <p>
+            A rigorous application process and excellent job opportunities 
+            both in the industry and in academia  guarantee that you will meet 
+            incredibly talented and bright students
+        </p>
+        </div>
+
+    </div><!-- / .row -->
+
+</section>
+
+<div class="number-counters">
+    <div class="container">
+    <div class="row count-wrapper">
+        
+        <!-- Item 1 -->
+        <div class="col-md-3 mb-sm-100 count-item wow fadeIn" data-wow-duration="1s" data-wow-delay=".3s">
+        <span class="count-nbr">10</span>
+        <span class="count-text">Electives</span>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="col-md-3 mb-sm-100 count-item wow fadeIn" data-wow-duration="1s">
+        <span class="count-nbr">2</span>
+        <span class="count-text">Tracks - science & industry</span>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="col-md-3 mb-sm-100 count-item wow fadeIn" data-wow-duration="1s">
+        <span class="count-nbr">80%</span>
+        <span class="count-text">International students</span>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="col-md-3 count-item wow fadeIn" data-wow-duration="1s" data-wow-delay=".3s">
+        <span class="count-nbr">60</span>
+        <span class="count-text">Places maximum p.a.</span>
+        </div>
+
+    </div><!-- / .row -->
+    </div><!-- / .container -->
+</div><!-- / .number-counters -->
+
+<div class="testimonials-parallax">
+    <div class="bg-overlay">
+    
+    <div class="t-wrapper t-slider">
+
+        <!-- Testimonial 1 -->
+        <blockquote>
+        “The OeNB also promotes knowledge and understanding among the general 
+        public and decision makers and supports research in Austria. 
+        Collaborations with universities - such as the one with the 
+        Master in Quantitative Finance and WU - are intensive and productive 
+        and an excellent contribution to mastering our challenges.”
+        <span class="et-quote t-type"></span>
+        <footer>
+            <cite>
+            <h5 class="h-alt">Gerhard Winkler</h5>
+            <h5>Deputy Head of Credit Division, Oesterreichische Nationalbank</h5>
+            </cite>
+        </footer>
+        </blockquote>
+
+        <!-- Testimonial 2 -->
+        <blockquote>
+        “As a leading Austrian banking group that is active at the international 
+        level Raiffeisen needs employees who can develop and apply quantitative 
+        methods and models and whose knowledge in the fields of credit and market 
+        risk management make them well-equipped for any potential future financial crises."
+        <span class="et-quote t-type"></span>
+        <footer>
+            <cite>
+            <h5 class="h-alt">Hannes Mösenbacher</h5>
+            <h5>Head of Risk Control, Raiffeisen Zentralbank Österreich AG</h5>
+            </cite>
+        </footer>
+        </blockquote>
+
+    </div><!-- / .t-wrapper -->
+    
+    </div><!-- / .bg-overlay -->
+</div><!-- / .testimonials-parallax -->
 
 {% endblock %}
-
-{% block scripts %}
-    {{ super() }}
-    <script type="text/javascript">
-        $('#subpage-nav').affix({
-          top:0,
-          offset: {
-            top: $('#intro').outerHeight()
-          }
-        });
-        console.log($('#intro').height()-$('#subpage-nav').height());
-
-        $('body').scrollspy({ target: '#subpage-nav' })
-    </script>
-{% endblock scripts %}
