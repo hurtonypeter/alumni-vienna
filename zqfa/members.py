@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 from flask import Blueprint, render_template, redirect, url_for, request, flash, abort
-=======
-from flask import Blueprint, render_template, redirect, url_for, request, flash
->>>>>>> 5b7b8c8e686f82f470310bac23e2d803a0dc9044
 from flask.ext.login import current_user, login_required
 from flask.ext.wtf import Form
 from flask_mail import Message
@@ -11,11 +7,7 @@ from wtforms import fields
 import newsletter
 from . import db, mail
 from .models import User, UserPosition
-<<<<<<< HEAD
 from .forms import SubscriptionsForm, ProfileForm
-=======
-from .forms import SubscriptionsForm
->>>>>>> 5b7b8c8e686f82f470310bac23e2d803a0dc9044
 from .tools import redirect_back
 from .user import user_active_required, admin_required
 from zqfa.events import get_access_levels
@@ -90,7 +82,6 @@ def deactivate(user_id):
     return redirect_back()
 
 
-<<<<<<< HEAD
 @bp.route('/member/<int:user_id>/delete', methods=["GET", "POST"])
 @admin_required
 def delete(user_id):
@@ -104,21 +95,6 @@ def delete(user_id):
         return redirect(url_for('members.index'))
 
     return render_template('members/delete.html', user = u)
-=======
-@bp.route('/member/<int:user_id>/delete', methods=["GET"])
-@admin_required
-def delete(user_id):
-    u = User.query.get_or_404(user_id)
-    name = u.name
-
-    # TODO CSRF protection
-    db.session.delete(u)
-    db.session.commit()
-
-    flash(name+' has been removed from the database.', 'success')
-
-    return redirect(url_for('members.index'))
->>>>>>> 5b7b8c8e686f82f470310bac23e2d803a0dc9044
 
 @bp.route('/profile', defaults={'user_id': None})
 @bp.route('/profile/<int:user_id>')
@@ -148,11 +124,7 @@ def subscriptions():
 
     if newsletter.check_connection() is False:
         flash('Service at the moment not available. Please try again later.')
-<<<<<<< HEAD
         return redirect_back()
-=======
-        redirect_back()
->>>>>>> 5b7b8c8e686f82f470310bac23e2d803a0dc9044
 
     # Dynamically create form
     lists = newsletter.get_lists()
@@ -178,7 +150,6 @@ def subscriptions():
     return render_template('members/subscriptions.html', form=form)
 
 
-<<<<<<< HEAD
 @bp.route('/profile/<int:user_id>/edit', methods = ['GET', 'POST'])
 @login_required
 def edit(user_id):
@@ -198,35 +169,3 @@ def edit(user_id):
         return redirect(url_for('members.profile', user_id=current_user.id))
 
     return render_template('user/edit.html', form=form, user=user)
-=======
-# TODO
-# @bp.route('/profile/edit', methods=['GET', 'POST'])
-# @login_required
-# def edit():
-#     # load the correct form
-#
-#     form = ProfileForm(request.form, obj=current_user)
-#
-#     if form.validate_on_submit():
-#         # adapt password if necessary
-#         if form.semester == 0:
-#             current_user.semester = None
-#
-#         if form.password_opt.data:
-#             current_user.set_password(form.password_opt.data)
-#
-#         # now the normal stuff
-#         form.populate_obj(current_user)
-#
-#         # adapt picture if necessary
-#         file = request.files['photo_file']
-#         if file.filename and is_image(file.filename):
-#             current_user.set_file('photo', file)
-#
-#         db.session.commit()
-#
-#         flash('You have your profile successfully edited.', 'success')
-#         return redirect(url_for('members.profile', user_id=current_user.id))
-#
-#     return render_template('user/edit.html', form=form)
->>>>>>> 5b7b8c8e686f82f470310bac23e2d803a0dc9044

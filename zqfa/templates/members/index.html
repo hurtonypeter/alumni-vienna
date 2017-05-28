@@ -76,24 +76,10 @@ $(document).ready(function() {
                     <td>{{ user.last_login.strftime('%Y-%m-%d %H:%M') }}</td>
                     <td>{{ user.registered.strftime('%Y-%m-%d %H:%M') }}</td>
                     <td>
-<<<<<<< HEAD
                         <form method="post" action="{{ url_for('members.activate', user_id=user.id) }}">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <button class="btn btn-primary" type="submit">Activate</button>
                         </form>
-=======
-                        {% if user.activated %}
-                            <form method="post" action="{{ url_for('members.deactivate', user_id=user.id) }}">
-                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                <button class="btn" type="submit">Deactivate</button>
-                            </form>
-                        {% else %}
-                            <form method="post" action="{{ url_for('members.activate', user_id=user.id) }}">
-                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                <button class="btn btn-primary" type="submit">Activate</button>
-                            </form>
-                        {% endif %}
->>>>>>> 5b7b8c8e686f82f470310bac23e2d803a0dc9044
                     </td>
                 </tr>
             {% endfor %}
@@ -105,11 +91,7 @@ $(document).ready(function() {
 
 
 
-<<<<<<< HEAD
     <table id="activated-members" class="table members table-striped table-bordered" cellspacing="0" width="100%">
-=======
-    <table id="activated-members" class="table members table-striped table-bordered" cellspacing="0" width="100%"">
->>>>>>> 5b7b8c8e686f82f470310bac23e2d803a0dc9044
     <thead>
         <tr>
             <th>Name</th>
@@ -118,12 +100,9 @@ $(document).ready(function() {
             <th>Industry</th>
             <th>Company</th>
             <th>Position</th>
-<<<<<<< HEAD
             {% if current_user.has_role('ROLE_ADMIN') %}
             <th>Actions</th>
             {% endif %}
-=======
->>>>>>> 5b7b8c8e686f82f470310bac23e2d803a0dc9044
         </tr>
     </thead>
     <tbody>
@@ -138,7 +117,6 @@ $(document).ready(function() {
                 <td>{{ member.industry }}</td>
                 <td>{% for position in member.positions %}{% if position.is_current %}{{ position.company }}{% endif %}{% endfor %}</td>
                 <td>{% for position in member.positions %}{% if position.is_current %}{{ position.title }}{% endif %}{% endfor %}</td>
-<<<<<<< HEAD
                 {% if current_user.has_role('ROLE_ADMIN') %}
                 <td>
                     <form method="post" action="{{ url_for('members.deactivate', user_id=member.id) }}">
@@ -148,8 +126,6 @@ $(document).ready(function() {
                     <a href="{{ url_for('members.delete', user_id=member.id) }}" class="btn btn-danger">Delete</a>
                 </td>
                 {% endif %}
-=======
->>>>>>> 5b7b8c8e686f82f470310bac23e2d803a0dc9044
             </tr>
         {% endfor %}
     </tbody>

@@ -17,14 +17,9 @@ bp = Blueprint('jobs', __name__)
 @user_active_required
 def index():
     jobs = Job.query.filter(Job.show_until >= date.today()).order_by(Job.show_until.desc()).all()
-<<<<<<< HEAD
     expired_jobs = Job.query.filter(Job.show_until < date.today()).order_by(Job.show_until.desc()).all()
     expired_user_jobs = Job.query.filter(Job.show_until < date.today()).filter(Job.user_id == current_user.id).order_by(Job.show_until.desc()).all()
     return render_template('jobs/index.html', jobs = jobs, expired_jobs = expired_jobs, expired_user_jobs = expired_user_jobs)
-=======
-    expired_user_jobs = Job.query.filter(Job.show_until < date.today()).filter(Job.user_id == current_user.id).order_by(Job.show_until.desc()).all()
-    return render_template('jobs/index.html', jobs = jobs, expired_user_jobs = expired_user_jobs)
->>>>>>> 5b7b8c8e686f82f470310bac23e2d803a0dc9044
 
 
 @bp.route('/job/<string:job_hash>/show')
@@ -51,19 +46,11 @@ def new():
         flash('Job successfully created.')
 
         # TODO: Make notification configurable
-<<<<<<< HEAD
         message = 'See '+url_for('jobs.show', job_hash=job.hash, _external=True)
         subject = '[ZQFA] New job posting'
         recipient = 'kevin@zqfa.ch'
         msg = Message(subject=subject, recipients=[recipient], body=message, sender=("ZQFA", "info@zqfa.ch"))
         #mail.send(msg)
-=======
-        message = 'See '+url_for('jobs.show', _external=True)
-        subject = '[ZQFA] New job posting'
-        recipient = 'kevin@zqfa.ch'
-        msg = Message(subject=subject, recipients=[recipient], body=message, sender=("ZQFA", "info@zqfa.ch"))
-        mail.send(msg)
->>>>>>> 5b7b8c8e686f82f470310bac23e2d803a0dc9044
         return redirect(url_for('jobs.show', job_hash=job.hash))
 
     return render_template('jobs/new.html', form=form)
