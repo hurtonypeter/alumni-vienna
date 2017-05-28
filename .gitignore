@@ -63,3 +63,6 @@ target/
 
 # project
 zqfa.sql
+.vscode/launch.json
+.vscode/settings.json
+.vscode/*
