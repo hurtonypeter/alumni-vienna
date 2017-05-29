@@ -1,55 +1,72 @@
-{% extends "base_old.html" %}
+{% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 {% from "helpers/form_field_datepicker.html" import form_field_datepicker %}
 
+{% if form.title == "" %}
+{% set title='Edit event' %}
+{% else %}
+{% set title='Create event' %}
+{% endif %}
+
 {% block title -%}
-    New - Events - {{ super() }}
+    {{ title }} - Events - {{ super() }}
 {%- endblock %}
 
 {% block styles %}
     {{ super() }}
-    <link rel="stylesheet" type="text/css" href="{{ 'css/bootstrap-datetimepicker.css'|static }}">
+    <link rel="stylesheet" type="text/css" href="{{ 'styles/bootstrap-datetimepicker.css'|static }}">
 {% endblock styles %}
 
 {% block page_content %}
-<div class="page-header">
-    <h1>Create Event</h1>
-</div>
-
-<div class="row">
-    <div class="col-md-offset-1 col-md-10">
-
-        <form class="form" method="POST">
-            {{ form.hidden_tag() }}
-            {{ wtf.form_field(form.title) }}
-            {{ wtf.form_field(form.description, rows=5) }}
-            {{ wtf.form_field(form.location) }}
-
-            <div class="row">
-                <div class="col-sm-6">
-                    {{ form_field_datepicker(form.start_date, button_map={'id':'datetimepicker', 'class':'input-group date'}) }}
-                </div>
-                <div class="col-sm-6">
-                    {{ form_field_datepicker(form.end_date) }}
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-6">
-                    {{ wtf.form_field(form.open_for) }}
-                </div>
-                <div class="col-sm-6">
-                    {{ wtf.form_field(form.visibility) }}
-                </div>
-            </div>
-
-            <p><em>Note</em>: An event can be open only for members, but anyway publicly visible to everyone.</p>
-
-            {{ wtf.form_field(form.submit, button_map={'submit':'primary btn-lg'}) }}
-        </form>
-
+<header class="page-title">
+  <div class="container">
+    <div class="row">
+      <h1 class="col-sm-6">{{ title }}</h1>
+      <ol class="col-sm-6 text-right breadcrumb">
+        <li><a href="{{ url_for('page.home') }}">Home</a></li>
+        <li><a href="{{ url_for('events.index') }}">Events</a></li>
+        <li class="active">{{ title }}</li>
+      </ol>
     </div>
-</div>
+  </div>
+</header>
+
+<section class="container">
+    <div class="row section-small">
+        <div class="col-md-12">
+
+            <form class="form" method="POST">
+                {{ form.hidden_tag() }}
+                {{ wtf.form_field(form.title) }}
+                {{ wtf.form_field(form.description, rows=5) }}
+                {{ wtf.form_field(form.location) }}
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{ form_field_datepicker(form.start_date, button_map={'id':'datetimepicker', 'class':'input-group date'}) }}
+                    </div>
+                    <div class="col-sm-6">
+                        {{ form_field_datepicker(form.end_date) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{ wtf.form_field(form.open_for) }}
+                    </div>
+                    <div class="col-sm-6">
+                        {{ wtf.form_field(form.visibility) }}
+                    </div>
+                </div>
+
+                <p><em>Note</em>: An event can be open only for members, but anyway publicly visible to everyone.</p>
+
+                {{ wtf.form_field(form.submit, button_map={'submit':'primary btn-lg'}) }}
+            </form>
+
+        </div>
+    </div>
+</section>
 {% endblock page_content %}
 
 

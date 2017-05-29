@@ -1,10 +1,12 @@
+{% extends "bootstrap/base.html" %}
+
 <!doctype html>
 <html class="no-js" lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        {% block title %}{% endblock %}
+        {% block title %}QFIN{% endblock %}
 
         {% block metas %}
         <meta name="description" content="">
@@ -35,10 +37,9 @@
         <!-- Animate.css -->
         <link rel="stylesheet" href="{{ 'styles/vendor/animate.css'|static }}">
 
-
-        <!-- Definity CSS -->
         <link rel="stylesheet" href="{{ 'styles/main.css'|static }}">
         <link rel="stylesheet" href="{{ 'styles/responsive.css'|static }}">
+        <link rel="stylesheet" href="{{ 'styles/site.css'|static }}">
         {% endblock styles %}
 
         <!-- JS -->

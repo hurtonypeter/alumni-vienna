@@ -1,0 +1,42 @@
+.section-small {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.btn-link {
+	transition: all .5s;
+    display: inline;
+    padding:0px;
+    margin:0px;
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-left-width: 0px;
+    font-weight: 300;
+}
+.btn-link:hover {
+    text-decoration: none;
+}
+
+p > .btn-link {
+	border-bottom: 1px solid rgba(44,170,223, 0);
+    color: #1c8cbc;
+}
+
+p > .btn-link:visited {
+    color: darken(#1c8cbc, 10%);
+    text-decoration: none;
+
+    
+}
+p > .btn-link:visited:hover,
+p > .btn-link:visited:focus {
+    color: #1c8cbc;
+    text-decoration: none;
+}
+
+p > .btn-link:hover,
+p > .btn-link:focus {
+    color: darken(#1c8cbc, 10%);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(44,170,223, 1);
+}

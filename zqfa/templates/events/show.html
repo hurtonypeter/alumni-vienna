@@ -1,4 +1,4 @@
-{% extends "base_old.html" %}
+{% extends "base.html" %}
 {% from "helpers/delete_form.html" import delete %}
 
 {% block title -%}
@@ -7,106 +7,114 @@
 
 {% block page_content %}
 
-{% if current_user.is_authenticated() and current_user.has_role('ROLE_ADMIN') %}
-  <div class="text-center admin-controls">
-    <ul class="horizontal-list">
-      {#
-      {% if event.invitation_sent %}
-        <li><span class="fa fa-paper-plane-o"> Invitation already sent</li>
-      {% else %}
-        <li><a href="{{ url_for('events.invitation', event_hash=event.hash) }}"><span class="fa fa-paper-plane-o"> Send invitation to members</a></li>
-      {% endif %}#}
-
-
-      <li>
-        <a href="{{ url_for('events.edit', event_hash=event.hash) }}">
-        <span class="fa fa-edit"></span> Edit</a>
-      </li>
-      <li>{{ delete(url_for('events.delete', event_hash=event.hash)) }}</li>
-    </ul>
+<header class="page-title">
+  <div class="container">
+    <div class="row">
+      <h1 class="col-sm-6">
+        {{ event.title }} <br />
+        <small>
+        {% if event.open_for <= 1 %}
+          <span class="label label-success">OPEN FOR EVERYONE</span>
+        {% elif event.open_for <= 2 %}
+          <span class="label label-warning">ONLY OPEN FOR MEMBERS</span>
+        {% else %}
+          <span class="label label-danger">ONLY OPEN FOR ADMINS</span>
+        {% endif %}
+        </small>
+      </h1>
+      <ol class="col-sm-6 text-right breadcrumb">
+        <li><a href="{{ url_for('page.home') }}">Home</a></li>
+        <li><a href="{{ url_for('events.index') }}">Events</a></li>
+        <li class="active">{{ event.title }}</li>
+      </ol>
+    </div>
   </div>
-{% endif %}
+</header>
 
+<section class="container">
+  <div class="row section-small">
 
+    <div class="col-md-8">
 
-<div class="page-header">
-  <div class="text-center">
-    {% if event.open_for <= 1 %}
-      <span class="label label-success">OPEN FOR EVERYONE</span>
-    {% elif event.open_for <= 2 %}
-      <span class="label label-warning">ONLY OPEN FOR MEMBERS</span>
-    {% else %}
-      <span class="label label-danger">ONLY OPEN FOR ADMINS</span>
-    {% endif %}
-  </div>
+      {% if event.location %}
+        <span class="sr-only">Location:</span> <span class="fa fa-location-arrow"></span> {{ event.location }}<br>
+      {% endif %}
 
-  <h1>{{ event.title }}</h1>
-</div>
+      <div class="event-time">
+        <span class="sr-only">Time:</span> <span class="fa fa-clock-o"></span>
+        <span title="Start: {{ event.start_date.strftime('%Y-%m-%d %H:%M') }}">
+          {{ event.start_date.strftime('%A, %b %d at %H:%M') }}
+        </span>
+        {% if event.end_date %}
+          &mdash;
+          <span title="End: {{ event.end_date.strftime('%Y-%m-%d %H:%M') }}">
+            {% if event.end_date.strftime('%Y-%m-%d') == event.start_date.strftime('%Y-%m-%d') %}
+              {{ event.end_date.strftime('%H:%M') }}
+            {% elif event.end_date.strftime('%Y-%m') == event.start_date.strftime('%Y-%m') %}
+              {{ event.end_date.strftime('%A, %d at %H:%M') }}
+            {% elif event.end_date.strftime('%Y') == event.start_date.strftime('%Y') %}
+              {{ event.end_date.strftime('%A, %b %d at %H:%M') }}
+            {% else %}
+              {{ event.end_date.strftime('%A, %b %d %Y at %H:%M') }}
+            {% endif %}
+          </span>
+        {% endif %}
+      </div>
 
-<div class="row">
-  {% set col_offset=0 %}
-  {% if current_user.is_authenticated() and event.open_for <= levels.open_for %}
-    {% set main_width=8 %}
-    {% set sidebar_width=4 %}
-  {% else %}
-    {% set main_width=12 %}
-    {% set sidebar_width=0 %}
-  {% endif %}
+      <div style="padding: 20px 0;">
+        {{ event.description_html|safe }}
+      </div>
 
-  {% if current_user.is_authenticated() and event.open_for <= levels.open_for %}
-    <div class="col-sm-{{ sidebar_width }} col-sm-push-{{ main_width+col_offset }} event-rsvp">
-      <h3>RSVP</h3>
+    </div>
+
+    <div class="col-md-4 text-right">
+      {% if current_user.is_authenticated() and current_user.has_role('ROLE_ADMIN') %}
+      <h6>Admin</h6>
+      <p>
+        <a href="{{ url_for('events.edit', event_hash=event.hash) }}">Edit event</a>
+      </p>
+      <form action="{{ url_for('events.delete', event_hash=event.hash) }}" 
+        method="post" 
+        onsubmit="return confirm('Do you really want to delete this event?');">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <p>
+          <button type="submit" class="btn-link">Delete event</button>
+        </p>
+      </form>
+      <br />
+      {% endif %}
+
+      <h6>RSVP</h6>
       {% if current_user in event.guests %}
         <p>You are registered for this event.</p>
         <p><a href="{{ url_for('events.not_going', event_hash=event.hash) }}" button class="btn btn-danger btn-lg">I am no longer coming</a></p>
       {% else %}
         <a href="{{ url_for('events.going', event_hash=event.hash) }}" class="btn btn-success btn-lg">I am coming</a>
       {% endif %}
-      <hr>
-    </div>
-  {% endif %}
-
-  <div class="col-sm-{{ main_width }} col-sm-pull-{{ sidebar_width-col_offset }}">
-    {% if event.location %}
-      <span class="sr-only">Location:</span> <span class="fa fa-location-arrow"></span> {{ event.location }}<br>
-    {% endif %}
-
-    <div class="event-time">
-      <span class="sr-only">Time:</span> <span class="fa fa-clock-o"></span>
-      <span title="Start: {{ event.start_date.strftime('%Y-%m-%d %H:%M') }}">
-        {{ event.start_date.strftime('%A, %b %d at %H:%M') }}
-      </span>
-      {% if event.end_date %}
-        &mdash;
-        <span title="End: {{ event.end_date.strftime('%Y-%m-%d %H:%M') }}">
-          {% if event.end_date.strftime('%Y-%m-%d') == event.start_date.strftime('%Y-%m-%d') %}
-            {{ event.end_date.strftime('%H:%M') }}
-          {% elif event.end_date.strftime('%Y-%m') == event.start_date.strftime('%Y-%m') %}
-            {{ event.end_date.strftime('%A, %d at %H:%M') }}
-          {% elif event.end_date.strftime('%Y') == event.start_date.strftime('%Y') %}
-            {{ event.end_date.strftime('%A, %b %d at %H:%M') }}
-          {% else %}
-            {{ event.end_date.strftime('%A, %b %d %Y at %H:%M') }}
-          {% endif %}
-        </span>
-      {% endif %}
-    </div>
-    <hr>
-
-    <div class="event-description markdown-container">
-      {{ event.description_html|safe }}
     </div>
 
-    <hr>
+  </div>
 
-    {% if current_user.is_authenticated() and event.guests %}
+  {% if current_user.is_authenticated() and event.guests %}
+  <div class="row section-small" style="padding-top:0;">
+    <div class="col-md-8">
       <h3>Guests</h3>
-      <table class="table">
-        <thead></thead>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Class of</th>
+          </tr>
+        </thead>
         <tbody>
           {% for user in event.guests %}
             <tr>
-              <td><img src="{{ user.small_picture_url }}" width="40" height="40"></td>
+              <td width="70px">
+                {% if user.small_picture_url %}
+                <img src="{{ user.small_picture_url }}" width="40" height="40">
+                {% endif %}
+              </td>
               <td><a href="{{ url_for('members.profile', user_id=user.id) }}" title="{{ user.name }}">{{ user.name }}</a></td>
               <td>{{ user.classof }}</td>
             </tr>
@@ -114,23 +122,9 @@
         </tbody>
         <tfoot></tfoot>
       </table>
-    {% endif %}
+    </div>
   </div>
+  {% endif %}
+</section>
 
-</div>
 {% endblock page_content %}
-
-
-
-{% block scripts %}
-  {{ super() }}
-  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
-  <script type="text/javascript" src="{{ 'js/bootstrap-datetimepicker.js'|static }}"></script>
-  <script type="text/javascript">
-    $(function () {
-      $('.datetimepicker').datetimepicker({
-        format: 'YYYY-MM-DD HH:mm'
-      });
-    });
-  </script>
-{% endblock scripts %}
