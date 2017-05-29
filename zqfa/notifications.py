@@ -27,10 +27,15 @@ def event_deleted(event):
     try:
         emails = [g.email for g in event.guests]
         if len(emails) > 0:
+            html = 'Hello, <br/><br/> unfortunately, we had to cancel the following event:<br/><br/><strong>' + \
+                event.title + '</strong><br/>' + event.description + '<br/><br/>' + \
+                'But we are already planning new events, so stay tuned!<br/><br/>' + \
+                'We are looking forward to seeing you again soon!<br/><br/>' + \
+                'Best<br/>Your Qfin Club Team'
             msg = Message(
-                subject = 'An event has been canceled',
-                bcc=emails,
-                body = 'nyehehe ')
+                subject = 'An event has been updated',
+                bcc = emails,
+                html = html)
             mail.send(msg)
         return True
     except:
