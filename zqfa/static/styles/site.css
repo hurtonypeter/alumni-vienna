@@ -3,6 +3,11 @@
     padding-bottom: 50px;
 }
 
+.list-style-none {
+    list-style-type: none;
+    padding: 0;
+}
+
 @media (max-width: 420px) {
     .main-demo-hero .hero-content-wrapper .hero-content .hero-lead {
         font-size: 2em;

@@ -1,32 +1,38 @@
-{% extends "base_old.html" %}
+{% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title -%}
     Edit profile - {{ super() }}
 {%- endblock %}
 
-{% block main %}
-<div class="wrapper" id="app">
-    <div class="container" id="profile">
-        <div class="row">
-            <div class="col-sm-10 col-sm-offset-1 container-white">
-                <div class="row">
-                    <div class="col-sm-10 col-sm-offset-1">
-                        <h2>Edit profile: {{ user.firstname }}, {{ user.lastname }}</h2>  
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-10 col-sm-offset-1">
-                        <form class="form" method="POST">
-                            {{ form.hidden_tag() }}
-                            {{ wtf.form_field(form.classof) }}
+{% block page_content %}
+<header class="page-title">
+  <div class="container">
+    <div class="row">
+      <h1 class="col-sm-6">
+        Edit profile <br />
+        <small>{{ user.name }}</small>
+      </h1>
+      <ol class="col-sm-6 text-right breadcrumb">
+        <li><a href="{{ url_for('page.home') }}">Home</a></li>
+        <li><a href="{{ url_for('members.index') }}">Members</a></li>
+        <li><a href="{{ url_for('members.profile', user_id=user.id) }}">{{ user.name }}</a></li>
+        <li class="active">Edit profile</li>
+      </ol>
+    </div>
+  </div>
+</header>
 
-                            {{ wtf.form_field(form.submit, button_map={'submit':'primary btn-lg'}) }}
-                        </form>
-                    </div>
-                </div>
-            </div>
+<section class="container">
+    <div class="row section-small">
+        <div class="col-md-12">
+            <form class="form" method="POST">
+                {{ form.hidden_tag() }}
+                {{ wtf.form_field(form.classof) }}
+
+                {{ wtf.form_field(form.submit, button_map={'submit':'primary btn-lg'}) }}
+            </form>
         </div>
     </div>
-</div>
-{% endblock main %}
+</section>
+{% endblock page_content %}

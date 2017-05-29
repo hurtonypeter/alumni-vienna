@@ -18,7 +18,7 @@ $(function() {
         "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
         "columnDefs": [
             { 
-                targets: [5, 6],
+                targets: [0, 5, 6],
                 orderable: false
             }
         ],
@@ -116,6 +116,7 @@ $(function() {
             <table id="activated-members" class="table members table-striped table-bordered">
             <thead>
                 <tr>
+                    <th></th>
                     <th>Name</th>
                     <th>Class of</th>
                     <th>Location</th>
@@ -131,7 +132,11 @@ $(function() {
                 {% for member in members %}
                     <tr>
                         <td>
+                            {% if member.small_picture_url %}
                             <img src="{{ member.small_picture_url }}" width="60" height="60">
+                            {% endif %}
+                        </td>
+                        <td>
                             <a href="{{ url_for('members.profile', user_id=member.id) }}">{{ member.name }}</a>
                         </td>
                         <td>{{ member.classof }}</td>

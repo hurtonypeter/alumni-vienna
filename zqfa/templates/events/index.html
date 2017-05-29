@@ -71,7 +71,7 @@
         <h3>
           Past events
         </h3>
-        <ul>
+        <ul class="list-style-none">
           {% for event in past_events %}
             {%- if event.visibility <= levels.visibility -%}
               <li>

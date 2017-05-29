@@ -1,22 +1,26 @@
-{% extends "base_old.html" %}
+{% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title -%}
     Registration - {{ super() }}
 {%- endblock %}
 
-{% block login %}
-    <p class="navbar-text navbar-registering">Currently registering</p>
-{% endblock %}
-
-
 {% block page_content %}
-
+<header class="page-title">
+  <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-            <div class="page-header">
-                <h1>Become a member</h1>
-            </div>
+      <h1 class="col-sm-6">Become a member</h1>
+      <ol class="col-sm-6 text-right breadcrumb">
+        <li><a href="{{ url_for('page.home') }}">Home</a></li>
+        <li class="active">Become a member</li>
+      </ol>
+    </div>
+  </div>
+</header>
+
+<section class="container">
+    <div class="row section-small">
+        <div class="col-md-12">
 
             <p>Our member profit in the following way of beeing a member of the QFC:</p>
             <ul>
@@ -45,8 +49,10 @@
                     <span class="fa-linkedin-square fa"></span> Apply to become member
                 </button>
             </form>
+
         </div>
     </div>
+</section>
 {% endblock %}
 
 {% block scripts %}
