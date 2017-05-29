@@ -1,40 +1,58 @@
-{% extends "base_old.html" %}
+{% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 {% from "helpers/form_field_datepicker.html" import form_field_datepicker %}
 
+{% if job %}
+    {% set title = 'Edit' %}
+{% else %}
+    {% set title = 'Post job' %}
+{% endif %}
+
 {% block title -%}
-    New - Jobs - {{ super() }}
+    {{ title }} - Jobs - {{ super() }}
 {%- endblock %}
 
 {% block page_content %}
-<div class="page-header">
-    {% if job %}
-        <h1>Edit Job</h1>
-    {% else %}
-        <h1>Create Job</h1>
-    {% endif %}
-</div>
-
-<div class="row">
-    <div class="col-md-offset-1 col-md-10">
-        <form class="form" method="POST">
-            {{ form.hidden_tag() }}
-            {{ wtf.form_field(form.title) }}
-            {{ wtf.form_field(form.company) }}
-            {{ wtf.form_field(form.description, rows=15) }}
-            {{ wtf.form_field(form.location) }}
-            {{ wtf.form_field(form.url, placeholder="http://") }}
-
-            <div>
-                <p>
-                    <strong>Note</strong>: The post will be visible in the job section for 30 days unless you decide to remove it earlier. After these 30 days the job is still accessable over the link, but will no longer shown in the overview. You are free to reactivate the post for again 30 days.
-                </p>
-                <p>Further, the post will be sent to our members over our weekly newsletter.</p>
-            </div>
-
-            {{ wtf.form_field(form.submit, button_map={'submit':'primary btn-lg'}) }}
-        </form>
-
+<header class="page-title">
+  <div class="container">
+    <div class="row">
+      <h1 class="col-sm-6">
+        {{ title }}
+      </h1>
+      <ol class="col-sm-6 text-right breadcrumb">
+        <li><a href="{{ url_for('page.home') }}">Home</a></li>
+        <li><a href="{{ url_for('jobs.index') }}">Jobs</a></li>
+        {% if job %}
+        <li><a href="{{ url_for('jobs.show', job_hash=job.hash) }}">{{job.title}}</a></li>
+        {% endif %}
+        <li class="active">{{ title }}</li>
+      </ol>
     </div>
-</div>
+  </div>
+</header>
+
+<section class="container">
+    <div class="row section-small">
+        <div class="col-md-12">
+            <form class="form" method="POST">
+                {{ form.hidden_tag() }}
+                {{ wtf.form_field(form.title) }}
+                {{ wtf.form_field(form.company) }}
+                {{ wtf.form_field(form.description, rows=15) }}
+                {{ wtf.form_field(form.location) }}
+                {{ wtf.form_field(form.url, placeholder="http://") }}
+
+                <div>
+                    <p>
+                        <strong>Note</strong>: The post will be visible in the job section for 30 days unless you decide to remove it earlier. After these 30 days the job is still accessable over the link, but will no longer shown in the overview. You are free to reactivate the post for again 30 days.
+                    </p>
+                    <p>Further, the post will be sent to our members over our weekly newsletter.</p>
+                </div>
+
+                {{ wtf.form_field(form.submit, button_map={'submit':'primary btn-lg'}) }}
+            </form>
+        </div>
+    </div>
+</section>
+
 {% endblock page_content %}

@@ -2,8 +2,8 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% from "helpers/form_field_datepicker.html" import form_field_datepicker %}
 
-{% if form.title == "" %}
-{% set title='Edit event' %}
+{% if event %}
+{% set title='Edit' %}
 {% else %}
 {% set title='Create event' %}
 {% endif %}
@@ -25,6 +25,9 @@
       <ol class="col-sm-6 text-right breadcrumb">
         <li><a href="{{ url_for('page.home') }}">Home</a></li>
         <li><a href="{{ url_for('events.index') }}">Events</a></li>
+        {% if event %}
+        <li><a href="{{ url_for('events.show', event_hash=event.hash) }}">{{ event.title }}</a></li>
+        {% endif %}
         <li class="active">{{ title }}</li>
       </ol>
     </div>

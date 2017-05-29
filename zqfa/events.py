@@ -128,7 +128,7 @@ def edit(event_hash):
         flash('Event successfully updated.')
         return redirect(url_for('events.show', event_hash=event.hash))
 
-    return render_template('events/new.html', form=form)
+    return render_template('events/new.html', form=form, event=event)
 
 
 @bp.route('/event/<string:event_hash>/delete', methods=["POST"])

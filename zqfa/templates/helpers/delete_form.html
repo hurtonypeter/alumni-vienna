@@ -1,6 +1,8 @@
 {% macro delete(url, class="form-link") %}
     <form action="{{ url }}" method="post" class="{{ class }}" onsubmit="return confirm('Do you really want to delete it?');">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        <button type="submit" class="btn-link"><span class="fa fa-trash-o"></span> Delete</button>
+        <p>
+            <button type="submit" class="btn-link">Delete</button>
+        </p>
     </form>
 {% endmacro %}

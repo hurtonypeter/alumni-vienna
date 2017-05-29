@@ -3,6 +3,31 @@
     padding-bottom: 50px;
 }
 
+@media (max-width: 420px) {
+    .main-demo-hero .hero-content-wrapper .hero-content .hero-lead {
+        font-size: 2em;
+    }
+    .main-demo-hero .hero-content-wrapper .hero-content .btn {
+        font-size: 0.6em;
+    }
+}
+@media (max-width: 320px) {
+    .main-demo-hero .hero-content-wrapper .hero-content .hero-lead {
+        font-size: 1.4em;
+    }
+    .main-demo-hero .hero-content-wrapper .hero-content .btn {
+        font-size: 0.5em;
+        padding: 4px 15px;
+    }
+}
+
+.navbar .navbar-header .navbar-brand {
+    padding: 20px 0;
+}
+.navbar-small .navbar-header .navbar-brand {
+    padding: 15px 0;
+}
+
 .btn-link {
 	transition: all .5s;
     display: inline;

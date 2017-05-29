@@ -73,14 +73,7 @@
       <p>
         <a href="{{ url_for('events.edit', event_hash=event.hash) }}">Edit event</a>
       </p>
-      <form action="{{ url_for('events.delete', event_hash=event.hash) }}" 
-        method="post" 
-        onsubmit="return confirm('Do you really want to delete this event?');">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        <p>
-          <button type="submit" class="btn-link">Delete event</button>
-        </p>
-      </form>
+      {{ delete(url_for('events.delete', event_hash=event.hash)) }}
       <br />
       {% endif %}
 

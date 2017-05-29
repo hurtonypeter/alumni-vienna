@@ -1,4 +1,4 @@
-{% extends "base_old.html" %}
+{% extends "base.html" %}
 {% from "helpers/delete_form.html" import delete %}
 
 {% block title -%}
@@ -7,71 +7,86 @@
 
 {% block page_content %}
 
-{% if current_user.has_role('ROLE_ADMIN') or current_user.id == job.user_id %}
-    <div class="text-center admin-controls">
-        <ul class="horizontal-list">
-            <li><a href="{{ url_for('jobs.edit', job_hash=job.hash) }}"><span class="fa fa-edit"> Edit</a></li>
-            <li>{{ delete(url_for('jobs.delete', job_hash=job.hash)) }}</li>
-        </ul>
+<header class="page-title">
+  <div class="container">
+    <div class="row">
+      <h1 class="col-sm-6">
+        {{ job.title }} <br />
+        <small>Posted on {{ job.created.strftime('%b %d') }}</small>
+      </h1>
+      <ol class="col-sm-6 text-right breadcrumb">
+        <li><a href="{{ url_for('page.home') }}">Home</a></li>
+        <li><a href="{{ url_for('jobs.index') }}">Jobs</a></li>
+        <li class="active">{{ job.title }}</li>
+      </ol>
     </div>
+  </div>
+</header>
+
+{% if current_user.has_role('ROLE_ADMIN') or current_user.id == job.user_id %}
+{% set container_class = 'col-md-8' %}
+{% else %}
+{% set container_class = 'col-md-12' %}
 {% endif %}
 
-<div class="page-navigation">
-    <a href="{{ url_for('jobs.index') }}">← Back to all jobs</a>
-</div>
+<section class="container">
+    <div class="row section-small">
+        <div class="col-md-8">
+            {% if job.company %}
+            <p>
+                <strong>
+                    <span class="sr-only">Company:</span>
+                    <span class="fa fa-building-o"></span>
+                    {{ job.company }}
+                </strong>
+            </p>
+            {% endif %}
 
-<div class="page-header">
-    <h1>{{ job.title }}</h1>
-    <div class="light">
-        Posted on <span title="Posted on">{{ job.created.strftime('%b %d') }}</span>
-    </div>
-</div>
+            {% if job.location %}
+            <p>
+                <span class="sr-only">Location:</span>
+                <span class="fa fa-location-arrow"></span>
+                {{ job.location }}
+            </p>
+            {% endif %}
 
-<div class="row">
-    <div class="col-sm-10 col-sm-offset-1">
-        {% if job.company or job.location or job.url %}
-            <ul class="horizontal-list wide">
-                {% if job.company %}
-                    <li class="Company">
-                        <strong>
-                            <span class="sr-only">Company:</span>
-                            <span class="fa fa-building-o"></span>
-                            {{ job.company }}
-                        </strong>
-                    </li>
-                {% endif %}
-                {% if job.location %}
-                    <li title="Location">
-                        <span class="sr-only">Location:</span>
-                        <span class="fa fa-location-arrow"></span>
-                        {{ job.location }}
-                    </li>
-                {% endif %}
-                {% if job.url %}
-                    <li title="More information">
-                        <span class="sr-only">More information:</span>
-                        <span class="fa fa-globe"></span>
+            {% if job.url %}
+            <p>
+                <span class="sr-only">More information:</span>
+                <span class="fa fa-globe"></span>
+                <a href="{{ job.url }}">{{ job.nice_url }}</a>
+            </p>
+            {% endif %}
 
-                        <a href="{{ job.url }}">{{ job.nice_url }}</a>
-                    </li>
-                {% endif %}
-            </ul>
-        {% endif %}
+            <div style="padding: 20px 0;">
+                {{ job.description_html|safe }}
+            </div>
 
-        <hr>
-
-        <div class="job-description markdown-container">
-            {{ job.description_html|safe }}
         </div>
 
-        <hr>
+        {% if current_user.has_role('ROLE_ADMIN') or current_user.id == job.user_id %}
+        <div class="col-md-4 text-right">
+            <h6>Actions</h6>
+            <p>
+                <a href="{{ url_for('jobs.edit', job_hash=job.hash) }}">Edit</a>
+            </p>
+            {{ delete(url_for('jobs.delete', job_hash=job.hash)) }}
+        </div>
+        {% endif %}
+    </div>
+</section>
 
-        <div class="job-apply">
+<section class="container">
+    <div class="row section-small" style="padding-top:0;">
+        <div class="col-md-12">
+            <hr>
             <p>When applying, please mention that you saw this job on the QFC website.</p>
             <p>
-                The job was posted by: <a href="{{ url_for('members.profile', user_id=job.user_id) }}">{{  job.user.name }}</a>.
+                The job was posted by: 
+                <a href="{{ url_for('members.profile', user_id=job.user_id) }}">{{  job.user.name }}</a>.
             </p>
         </div>
     </div>
-</div>
+</section>
+
 {% endblock page_content %}
