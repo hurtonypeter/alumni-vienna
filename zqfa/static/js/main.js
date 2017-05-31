@@ -9,17 +9,17 @@
 	$(document).ready(function(){
 
 		initNavbar();
-		initScroller();
-		initCountCirc();
-		initCountCircMin();
-		initCountNbr();
-		initCountMin();
+		//initScroller();
+		//initCountCirc();
+		//initCountCircMin();
+		//initCountNbr();
+		//initCountMin();
 		initSliders();
-		initGallery();
+		//initGallery();
 		initAnimation();
-		initVideoBg();
-		initKenburns();
-		initCountdown();
+		//initVideoBg();
+		//initKenburns();
+		//initCountdown();
 
 		if ( document.getElementById('shop-slider-range') ) {
 			initRangeSlider();
@@ -45,8 +45,8 @@
 
 		});
 
-		initPortfolio();
-		initBlogMasonry();
+		//initPortfolio();
+		//initBlogMasonry();
 
 	});
 
