@@ -45,7 +45,7 @@
 
 		});
 
-		//initPortfolio();
+		initPortfolio();
 		//initBlogMasonry();
 
 	});
