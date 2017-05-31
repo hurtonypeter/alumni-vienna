@@ -8,7 +8,7 @@
     // Initialize all functions when the document is ready.
 	$(document).ready(function(){
 
-		initNavbar();
+		//initNavbar();
 		//initScroller();
 		//initCountCirc();
 		//initCountCircMin();

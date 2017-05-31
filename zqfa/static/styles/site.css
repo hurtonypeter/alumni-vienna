@@ -8,20 +8,34 @@
     padding: 0;
 }
 
+.main-demo-hero {
+    background-image: url('../images/landing-image.jpg');
+    background-position-x: 50%;
+    background-position-y: 50%;
+}
+
+.main-demo-hero .bg-overlay {
+    background: rgba(236, 236, 236, 0.4);
+}
+.number-counters {
+    background-image: none;
+}
+
 @media (max-width: 420px) {
     .main-demo-hero .hero-content-wrapper .hero-content .hero-lead {
         font-size: 2em;
     }
     .main-demo-hero .hero-content-wrapper .hero-content .btn {
         font-size: 0.6em;
+        padding: 4px 15px;
     }
 }
 @media (max-width: 320px) {
     .main-demo-hero .hero-content-wrapper .hero-content .hero-lead {
-        font-size: 1.4em;
+        font-size: 1.5em;
     }
     .main-demo-hero .hero-content-wrapper .hero-content .btn {
-        font-size: 0.5em;
+        font-size: 0.6em;
         padding: 4px 15px;
     }
 }
