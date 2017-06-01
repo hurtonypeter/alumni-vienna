@@ -15,6 +15,7 @@ $(function() {
     $('table#activated-members').dataTable({
         "pagingType": "simple_numbers",
         "order": [[1, "asc" ]],
+        "dom": "ftrip",
         "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
         "columnDefs": [
             { 
@@ -78,85 +79,89 @@ $(function() {
             
             {% if current_user.has_role('ROLE_ADMIN') and not_active %}
                 <h3>Not activated users</h3>
-                <table id="new-members" class="table members table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Class of</th>
-                        <th>Last Login</th>
-                        <th>Registered</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for user in not_active %}
+                <div class="table-responsive">
+                    <table id="new-members" class="table members table-striped table-bordered">
+                    <thead>
                         <tr>
-                            <td>{{ user.id }}</td>
-                            <td>
-                                <a href="{{ url_for('members.profile', user_id=user.id) }}">{{ user.name }}</a>
-                                <a href="mailto:{{ user.email }}"><span class="fa-envelope-o fa"></span></a>
-                            </td>
-                            <td>{{ user.classof }}</td>
-                            <td>{{ user.last_login.strftime('%Y-%m-%d %H:%M') }}</td>
-                            <td>{{ user.registered.strftime('%Y-%m-%d %H:%M') }}</td>
-                            <td>
-                                <form method="post" action="{{ url_for('members.activate', user_id=user.id) }}">
-                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                    <button class="btn btn-primary btn-small" type="submit">Activate</button>
-                                </form>
-                            </td>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Class of</th>
+                            <th>Last Login</th>
+                            <th>Registered</th>
+                            <th>Actions</th>
                         </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                        {% for user in not_active %}
+                            <tr>
+                                <td>{{ user.id }}</td>
+                                <td>
+                                    <a href="{{ url_for('members.profile', user_id=user.id) }}">{{ user.name }}</a>
+                                    <a href="mailto:{{ user.email }}"><span class="fa-envelope-o fa"></span></a>
+                                </td>
+                                <td>{{ user.classof }}</td>
+                                <td>{{ user.last_login.strftime('%Y-%m-%d %H:%M') }}</td>
+                                <td>{{ user.registered.strftime('%Y-%m-%d %H:%M') }}</td>
+                                <td>
+                                    <form method="post" action="{{ url_for('members.activate', user_id=user.id) }}">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <button class="btn btn-primary btn-small" type="submit">Activate</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
                 <br />
             {% endif %}
 
-            <table id="activated-members" class="table members table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Class of</th>
-                    <th>Location</th>
-                    <th>Industry</th>
-                    <th>Company</th>
-                    <th>Position</th>
-                    {% if current_user.has_role('ROLE_ADMIN') %}
-                    <th>Actions</th>
-                    {% endif %}
-                </tr>
-            </thead>
-            <tbody>
-                {% for member in members %}
+            <div class="table-responsive">
+                <table id="activated-members" class="table members table-striped table-bordered">
+                <thead>
                     <tr>
-                        <td>
-                            {% if member.small_picture_url %}
-                            <img src="{{ member.small_picture_url }}" width="60" height="60">
-                            {% endif %}
-                        </td>
-                        <td>
-                            <a href="{{ url_for('members.profile', user_id=member.id) }}">{{ member.name }}</a>
-                        </td>
-                        <td>{{ member.classof }}</td>
-                        <td>{{ member.location }}</td>
-                        <td>{{ member.industry }}</td>
-                        <td>{% for position in member.positions %}{% if position.is_current %}{{ position.company }}{% endif %}{% endfor %}</td>
-                        <td>{% for position in member.positions %}{% if position.is_current %}{{ position.title }}{% endif %}{% endfor %}</td>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Class of</th>
+                        <th>Location</th>
+                        <th>Industry</th>
+                        <th>Company</th>
+                        <th>Position</th>
                         {% if current_user.has_role('ROLE_ADMIN') %}
-                        <td>
-                            <form method="post" action="{{ url_for('members.deactivate', user_id=member.id) }}">
-                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                <p><button class="btn-link" type="submit">Deactivate</button></p>
-                            </form>
-                            {{ delete(url_for('members.delete', user_id=member.id)) }}
-                        </td>
+                        <th>Actions</th>
                         {% endif %}
                     </tr>
-                {% endfor %}
-            </tbody>
-            </table>
+                </thead>
+                <tbody>
+                    {% for member in members %}
+                        <tr>
+                            <td>
+                                {% if member.small_picture_url %}
+                                <img src="{{ member.small_picture_url }}" width="60" height="60">
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{{ url_for('members.profile', user_id=member.id) }}">{{ member.name }}</a>
+                            </td>
+                            <td>{{ member.classof }}</td>
+                            <td>{{ member.location }}</td>
+                            <td>{{ member.industry }}</td>
+                            <td>{% for position in member.positions %}{% if position.is_current %}{{ position.company }}{% endif %}{% endfor %}</td>
+                            <td>{% for position in member.positions %}{% if position.is_current %}{{ position.title }}{% endif %}{% endfor %}</td>
+                            {% if current_user.has_role('ROLE_ADMIN') %}
+                            <td>
+                                <form method="post" action="{{ url_for('members.deactivate', user_id=member.id) }}">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <p><button class="btn-link" type="submit">Deactivate</button></p>
+                                </form>
+                                {{ delete(url_for('members.delete', user_id=member.id)) }}
+                            </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
 
         </div>
     </div>

@@ -15,10 +15,18 @@
 }
 
 .main-demo-hero .bg-overlay {
-    background: rgba(236, 236, 236, 0.4);
+    background: rgba(236, 236, 236, 0.3);
 }
 .number-counters {
     background-image: none;
+}
+@media (min-width: 1260px) {
+    .navbar .navbar-header {
+        width: 15%;
+    }
+}
+.table-responsive {
+    border: 0;
 }
 
 @media (max-width: 420px) {

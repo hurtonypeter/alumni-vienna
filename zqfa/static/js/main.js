@@ -9,7 +9,7 @@
 	$(document).ready(function(){
 
 		//initNavbar();
-		//initScroller();
+		initScroller();
 		//initCountCirc();
 		//initCountCircMin();
 		//initCountNbr();
