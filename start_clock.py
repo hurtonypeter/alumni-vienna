@@ -6,4 +6,3 @@ def timed_job():
     queue.enqueue(send_newsletter)
 
 sched.start()
-

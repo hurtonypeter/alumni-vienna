@@ -85,9 +85,10 @@ def combined_newsletter():
     return True
 
 def send_newsletter():
-    lists = mailchimp_api.lists.all(get_all=True, fields="lists.name,lists.id")
+    #lists = mailchimp_api.lists.all(get_all=True, fields="lists.name,lists.id")
     #jobs = Job.query.filter(Job.show_until >= date.today())
-    events_newsletter()
+    #events_newsletter()
+    print "yay"
     return None
 
 # ----------------------------------------------------------
