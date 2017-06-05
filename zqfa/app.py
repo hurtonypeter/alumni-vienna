@@ -86,28 +86,28 @@ def create_app():
         return isinstance(obj, basestring)
 
     import zqfa.tools
-    tools.setUp(app)
+    zqfa.tools.setUp(app)
 
     import zqfa.errors
-    app.register_blueprint(errors.bp)
+    app.register_blueprint(zqfa.errors.bp)
 
     import zqfa.user
-    user.setUp(app)
+    zqfa.user.setUp(app)
 
     import zqfa.page
-    app.register_blueprint(page.bp)
+    app.register_blueprint(zqfa.page.bp)
 
     import zqfa.jobs
-    app.register_blueprint(jobs.bp)
+    app.register_blueprint(zqfa.jobs.bp)
 
     import zqfa.members
-    app.register_blueprint(members.bp)
+    app.register_blueprint(zqfa.members.bp)
 
     import zqfa.events
-    app.register_blueprint(events.bp)
+    app.register_blueprint(zqfa.events.bp)
 
     import zqfa.models
-    models.setUp(app)
+    zqfa.models.setUp(app)
 
     # add sentry if we are in production and it is configured
     if app.config.get('SENTRY_DSN') and not app.config.get('DEBUG'):
