@@ -3,15 +3,15 @@ from functools import wraps
 
 from flask import Blueprint, render_template, session, redirect, url_for, request, flash, current_app
 from flask_mail import Message
-from flask.ext.login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user
 from flask_oauthlib.client import OAuth
 
-from . import login_manager, db, mail
-from .models import User, UserPosition
-from .forms import UserRegistrationForm
-from .tools import redirect_back
-import newsletter
-import notifications
+from zqfa.app import login_manager, db, mail
+from zqfa.models import User, UserPosition
+from zqfa.forms import UserRegistrationForm
+from zqfa.tools import redirect_back
+import zqfa.newsletter
+import zqfa.notifications
 
 from random import randint
 from sqlalchemy.orm.exc import NoResultFound

@@ -1,6 +1,6 @@
 import hashlib
 from mailchimp3 import MailChimp
-from . import mailchimp_api
+from zqfa.app import mailchimp_api
 
 def check_connection():
     try:

@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, session, redirect, url_for
-from flask.ext.login import current_user, logout_user, login_required
+from flask_login import current_user, logout_user, login_required
 
 bp = Blueprint('page', __name__)
 

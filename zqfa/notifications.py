@@ -1,7 +1,7 @@
 from flask_mail import Message
 from flask import url_for
-from . import mail
-from .models import User
+from zqfa.app import mail
+from zqfa.models import User
 import json
 
 def event_modified(event):

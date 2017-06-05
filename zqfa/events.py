@@ -1,13 +1,13 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, abort
-from flask.ext.login import current_user, login_required
+from flask_login import current_user, login_required
 
 from datetime import date, timedelta
 
-from . import db
-from .models import Event
-from .tools import redirect_back
-from .forms import EventForm, DeleteForm
-from .user import admin_required
+from zqfa.app import db
+from zqfa.models import Event
+from zqfa.tools import redirect_back
+from zqfa.forms import EventForm, DeleteForm
+from zqfa.user import admin_required
 import notifications
 
 
@@ -144,7 +144,7 @@ def delete(event_hash):
     form = DeleteForm(request.form, event)
     if form.validate_on_submit():
         notifications.event_deleted(event)
-        
+
         db.session.delete(event)
         db.session.commit()
 

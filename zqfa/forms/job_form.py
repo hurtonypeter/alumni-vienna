@@ -1,8 +1,8 @@
 from wtforms import fields, validators
-from flask.ext.wtf import Form
+from flask_wtf import Form
 
-from ..models import Event
-from .fields import *
+from zqfa.models import Event
+from zqfa.forms.fields import *
 
 
 class JobForm(Form):

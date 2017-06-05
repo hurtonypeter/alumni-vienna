@@ -1,10 +1,11 @@
 import os
 from mailchimp3 import MailChimp
+from zqfa.models import User, UserPosition, Event, Job
 
 import json
 
 mailchimp_api = MailChimp(
-    os.getenv('MAILCHIMP_USERNAME', 'hurtonypeter'), 
+    os.getenv('MAILCHIMP_USERNAME', 'hurtonypeter'),
     os.getenv('MAILCHIMP_APIKEY', '1bf5a40b84aaf2eae8e4b5e3436d4fe3-us15'))
 
 footer = '<br/><br/>We are looking forward to seeing you again soon!<br/><br/>' + \
@@ -26,7 +27,7 @@ def events_newsletter():
     }
     resp_camp = mailchimp_api.campaigns.create(data_camp)
     id_camp = resp_camp['id']
-    
+
     data_cont = {
         "html": 'Hello! <br /><br />' + \
                 events_list() + footer
@@ -50,7 +51,7 @@ def jobs_newsletter():
     }
     resp_camp = mailchimp_api.campaigns.create(data_camp)
     id_camp = resp_camp['id']
-    
+
     data_cont = {
         "html": 'Hello! <br /><br />' + \
                 jobs_list() + footer
@@ -74,7 +75,7 @@ def combined_newsletter():
     }
     resp_camp = mailchimp_api.campaigns.create(data_camp)
     id_camp = resp_camp['id']
-    
+
     data_cont = {
         "html": 'Hello! <br /><br />' + \
                 events_list() + '<br /><br />' + jobs_list() + footer
@@ -115,3 +116,4 @@ def log(szoveg):
     f.write(json.dumps(szoveg, indent=4))
     f.close()
     return None
+

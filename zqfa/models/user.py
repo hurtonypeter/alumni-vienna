@@ -1,5 +1,5 @@
-from .. import db
-from . import Base
+from zqfa.app import db
+from zqfa.models import Base
 from datetime import datetime
 
 

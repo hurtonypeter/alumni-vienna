@@ -1,3 +1,3 @@
 web: newrelic-admin run-program uwsgi uwsgi.ini
-clock: python zqfa/worker/clock.py
-worker: python zqfa/worker/worker.py
+clock: python -u start_clock.py
+worker: python -u start_worker.py

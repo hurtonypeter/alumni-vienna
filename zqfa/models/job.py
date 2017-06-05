@@ -4,9 +4,9 @@ from datetime import datetime, timedelta
 
 from sqlalchemy.orm import validates
 
-from .. import db
-from ..tools import markdown_user
-from . import Base
+from zqfa.app import db
+from zqfa.tools import markdown_user
+from zqfa.models import Base
 
 
 def create_hash(context):

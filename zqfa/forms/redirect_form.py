@@ -1,8 +1,8 @@
 from flask import redirect, url_for
-from flask.ext.wtf import Form
+from flask_wtf import Form
 from wtforms import fields
 
-from ..tools import get_redirect_target, is_safe_url
+from zqfa.tools import get_redirect_target, is_safe_url
 
 
 class RedirectForm(Form):

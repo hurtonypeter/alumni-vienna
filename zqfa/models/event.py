@@ -3,9 +3,9 @@ from hashlib import sha1
 from random import randint
 import datetime
 
-from .. import db
-from . import Base, User
-from ..tools import markdown_admin
+from zqfa.app import db
+from zqfa.models import Base, User
+from zqfa.tools import markdown_admin
 
 events_users = db.Table('events_users', Base.metadata,
     db.Column('event_id', db.Integer, db.ForeignKey('events.id')),

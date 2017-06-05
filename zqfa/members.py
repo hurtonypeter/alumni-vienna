@@ -1,15 +1,15 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, abort
-from flask.ext.login import current_user, login_required
-from flask.ext.wtf import Form
+from flask_login import current_user, login_required
+from flask_wtf import Form
 from flask_mail import Message
 from wtforms import fields
 
 import newsletter
-from . import db, mail
-from .models import User, UserPosition
-from .forms import SubscriptionsForm, ProfileForm
-from .tools import redirect_back
-from .user import user_active_required, admin_required
+from zqfa.app import db, mail
+from zqfa.models import User, UserPosition
+from zqfa.forms import SubscriptionsForm, ProfileForm
+from zqfa.tools import redirect_back
+from zqfa.user import user_active_required, admin_required
 from zqfa.events import get_access_levels
 
 

@@ -7,10 +7,10 @@ from sqlalchemy.pool import Pool
 from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
-from .user import User
-from .user_positions import UserPosition
-from .event import Event
-from .job import Job
+from zqfa.models.user import User
+from zqfa.models.user_positions import UserPosition
+from zqfa.models.event import Event
+from zqfa.models.job import Job
 
 
 def setUp(app):

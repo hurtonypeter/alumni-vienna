@@ -1,14 +1,14 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, abort
-from flask.ext.login import current_user
+from flask_login import current_user
 from flask_mail import Message
 
 from datetime import date, timedelta, datetime
 
-from . import db, mail
-from .models import Job
-from .tools import redirect_back
-from .forms import JobForm, DeleteForm
-from .user import user_active_required
+from zqfa.app import db, mail
+from zqfa.models import Job
+from zqfa.tools import redirect_back
+from zqfa.forms import JobForm, DeleteForm
+from zqfa.user import user_active_required
 
 bp = Blueprint('jobs', __name__)
 

@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, redirect, url_for, request
-from flask.ext.login import current_user, flash
+from flask_login import current_user, flash
 
-from .tools import get_redirect_target
-from . import csrf
+from zqfa.tools import get_redirect_target
+from zqfa.app import csrf
 
 bp = Blueprint('errors', __name__)
 

@@ -1,8 +1,8 @@
 from wtforms import ValidationError
-from flask.ext.wtf import Form
+from flask_wtf import Form
 
-from ..models import User
-from .fields import *
+from zqfa.models import User
+from zqfa.forms.fields import *
 
 class ProfileForm(Form):
     classof = classof
