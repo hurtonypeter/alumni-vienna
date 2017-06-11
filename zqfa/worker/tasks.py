@@ -1,4 +1,3 @@
-import os
 from mailchimp3 import MailChimp
 from datetime import date, timedelta
 from zqfa.models import Event, Job
@@ -9,7 +8,7 @@ import json
 footer = 'We are looking forward to seeing you again soon!<br/><br/>' + \
          'Best<br/>Your Qfin Club Team'
 from_name = "QFinClub"
-reply_to = "hurtonypeter@gmail.com"
+reply_to = "qfinclub@wu.ac.at"
 
 def events_newsletter(events):
     data_camp = {
@@ -20,7 +19,7 @@ def events_newsletter(events):
             "reply_to": reply_to
         },
         "recipients": {
-            "list_id": os.getenv('MAILCHIMP_EVENTS_NEWSLETTER', '54ef41b266')
+            "list_id": '5f9ad0f7a9'
         }
     }
     resp_camp = mailchimp_api.campaigns.create(data_camp)
@@ -44,7 +43,7 @@ def jobs_newsletter(jobs):
             "reply_to": reply_to
         },
         "recipients": {
-            "list_id": os.getenv('MAILCHIMP_JOBS_NEWSLETTER', '54ef41b266')
+            "list_id": '65ed5f6380'
         }
     }
     resp_camp = mailchimp_api.campaigns.create(data_camp)
@@ -68,7 +67,7 @@ def combined_newsletter(jobs, events):
             "reply_to": reply_to
         },
         "recipients": {
-            "list_id": os.getenv('MAILCHIMP_COMBINED_NEWSLETTER', '54ef41b266')
+            "list_id": '4e788e0791'
         }
     }
     resp_camp = mailchimp_api.campaigns.create(data_camp)
@@ -130,11 +129,3 @@ def jobs_to_html_list(jobs):
     for job in jobs:
         text += "<li>" + job.title + "</li>"
     return text + "</ul>"
-
-def log(szoveg):
-    f = open("/home/logs/log.txt", 'a')
-    f.write("\n")
-    f.write(json.dumps(szoveg, indent=4))
-    f.close()
-    return None
-
