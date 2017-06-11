@@ -1,3 +1,19 @@
+.alert-info {
+    background: #d9edf7;
+}
+.alert-danger {
+    background: #f2dede;
+}
+.alert-success {
+    background: #dff0d8;
+}
+.alert-warning {
+    background: #fcf8e3;
+}
+.alert-dismissable .close, .alert-dismissible .close{
+    top: 2px;
+}
+
 .section-small {
     padding-top: 50px;
     padding-bottom: 50px;
