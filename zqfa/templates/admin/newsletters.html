@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title -%}
+    Send weekly newsletters - {{ super() }}
+{%- endblock %}
+
+{% block page_content %}
+<header class="page-title">
+  <div class="container">
+    <div class="row">
+      <h1 class="col-sm-6">
+        Send weekly newsletters
+      </h1>
+      <ol class="col-sm-6 text-right breadcrumb">
+        <li><a href="{{ url_for('page.home') }}">Home</a></li>
+        <li class="active">Admin</li>
+      </ol>
+    </div>
+  </div>
+</header>
+
+<section class="container">
+    <div class="row section-small">
+        <div class="col-md-12">
+            <p>
+                Here you can send out the weekly updates for users about the new jobs and events.
+            </p>
+            <form action="{{ url_for('admin.send_newsletters') }}" 
+                method="post" 
+                class="{{ class }}" 
+                onsubmit="return confirm('Are you sure you want to send out the newsletters?');">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <p>
+                    <button type="submit" class="btn">Send newsletters</button>
+                </p>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock page_content %}

@@ -106,6 +106,9 @@ def create_app():
     import zqfa.events
     app.register_blueprint(zqfa.events.bp)
 
+    import zqfa.admin
+    app.register_blueprint(zqfa.admin.bp)
+
     import zqfa.models
     zqfa.models.setUp(app)
 
