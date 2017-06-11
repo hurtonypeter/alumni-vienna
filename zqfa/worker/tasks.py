@@ -24,6 +24,8 @@ def events_newsletter(events):
     }
     resp_camp = mailchimp_api.campaigns.create(data_camp)
     id_camp = resp_camp['id']
+    if not id_camp:
+        raise Exception(resp_camp['title'] + " " + resp_camp['detail'])
 
     data_cont = {
         "html": 'Hello! <br /><br />' + \
@@ -48,6 +50,8 @@ def jobs_newsletter(jobs):
     }
     resp_camp = mailchimp_api.campaigns.create(data_camp)
     id_camp = resp_camp['id']
+    if not id_camp:
+        raise Exception(resp_camp['title'] + " " + resp_camp['detail'])
 
     data_cont = {
         "html": 'Hello! <br /><br />' + \
@@ -72,6 +76,8 @@ def combined_newsletter(jobs, events):
     }
     resp_camp = mailchimp_api.campaigns.create(data_camp)
     id_camp = resp_camp['id']
+    if not id_camp:
+        raise Exception(resp_camp['title'] + " " + resp_camp['detail'])
 
     data_cont = {
         "html": 'Hello! <br /><br />' + \
@@ -82,21 +88,17 @@ def combined_newsletter(jobs, events):
     return True
 
 def send_newsletter():
-    try:
-        compare_date = date.today() - timedelta(days=7)
-        jobs = Job.query.filter(Job.created >= compare_date).all()
-        events = Event.query.filter(Event.created >= compare_date).order_by(Event.start_date).all()
+    compare_date = date.today() - timedelta(days=7)
+    jobs = Job.query.filter(Job.created >= compare_date).all()
+    events = Event.query.filter(Event.created >= compare_date).order_by(Event.start_date).all()
 
-        if len(jobs) > 0:
-            jobs_newsletter(jobs)
-        if len(events) > 0:
-            events_newsletter(events)
-        if len(jobs) > 0 or len(events) > 0:
-            combined_newsletter(jobs, events)
+    if len(jobs) > 0:
+        jobs_newsletter(jobs)
+    if len(events) > 0:
+        events_newsletter(events)
+    if len(jobs) > 0 or len(events) > 0:
+        combined_newsletter(jobs, events)
         
-        return True
-    except:
-        return False
 
 # ----------------------------------------------------------
 ##  Helpers

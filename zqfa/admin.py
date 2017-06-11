@@ -15,8 +15,9 @@ def newsletters():
 @bp.route('/admin/newsletters', methods=["POST"])
 @admin_required
 def send_newsletters():
-    if tasks.send_newsletter():
+    try:
+        tasks.send_newsletter()
         flash('Newsletters successfully sent.')
-    else:
-        flash('Something went wrong! Can not send the newsletters.')
+    except Exception as ex:
+        flash('Something went wrong! Can not send the newsletters. ' + ex.message)
     return redirect_back()
