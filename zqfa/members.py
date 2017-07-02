@@ -57,7 +57,7 @@ def activate(user_id):
         mail.send(msg)
 
         # Subscribe to mailinglists
-        #newsletter.subscribe_all(u)
+        newsletter.subscribe_all(u)
 
         flash('User has been activated, a welcome message has been sent and he has been subscribed to all newsletters.')
     else:
