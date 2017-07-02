@@ -113,7 +113,7 @@ def become_member():
             session.pop('classof', None)
 
             # Inform admin
-            notifications.admin_notification_new_user(user)
+            zqfa.notifications.admin_notification_new_user(user)
 
             return redirect(url_for('page.success'))
 
@@ -144,13 +144,13 @@ def update_linkedin_fields(user, token=None):
             user.email = email_new
 
         # Handle mailchimp subscription
-        if user.activated and email_old != user.email and newsletter.check_connection():
+        if user.activated and email_old != user.email and zqfa.newsletter.check_connection():
             if not email_old:
                 # Till now, email was empty, subscribe user to all newsletters
-                newsletter.subscribe_all(user)
+                zqfa.newsletter.subscribe_all(user)
             else:
                 # E-Mail changed, so update it in mailchimp
-                newsletter.update_email(email_old, user.email)
+                zqfa.newsletter.update_email(email_old, user.email)
 
         user.firstname = profile.data.get('firstName', '')
         user.lastname = profile.data.get('lastName', '')
@@ -227,7 +227,7 @@ def linkedin():
 def login():
     return linkedin.authorize(callback=url_for('user.authorized', _external=True, _scheme='https'))
 
-    
+
 @bp.route('/logout')
 def logout():
     session.pop('linkedin_token', None)
