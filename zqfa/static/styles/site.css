@@ -33,6 +33,11 @@
     background-position-x: 50%;
     background-position-y: 50%;
 }
+@media (max-width: 992px) {
+    .main-demo-hero {
+        background-attachment: scroll;
+    }
+}
 
 .main-demo-hero .bg-overlay {
     background: rgba(236, 236, 236, 0.3);
