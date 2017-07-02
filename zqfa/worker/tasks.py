@@ -1,14 +1,12 @@
 from mailchimp3 import MailChimp
+from flask import render_template
 from datetime import date, timedelta
 from zqfa.models import Event, Job
 from zqfa.app import mailchimp_api, app
 
-import json
 
-footer = 'We are looking forward to seeing you again soon!<br/><br/>' + \
-         'Best<br/>Your Qfin Club Team'
 from_name = "QFinClub"
-reply_to = "qfinclub@wu.ac.at"
+reply_to = "hurtony.peter@encosoft.hu"
 
 def events_newsletter(events):
     data_camp = {
@@ -28,8 +26,7 @@ def events_newsletter(events):
         raise Exception(resp_camp['title'] + " " + resp_camp['detail'])
 
     data_cont = {
-        "html": 'Hello! <br /><br />' + \
-                events_list(events) + footer
+        "html": render_template('newsletters/events_newsletter.html', events=events)
     }
     mailchimp_api.campaigns.content.update(campaign_id=id_camp, data=data_cont)
     mailchimp_api.campaigns.actions.send(campaign_id=id_camp)
@@ -54,8 +51,7 @@ def jobs_newsletter(jobs):
         raise Exception(resp_camp['title'] + " " + resp_camp['detail'])
 
     data_cont = {
-        "html": 'Hello! <br /><br />' + \
-                jobs_list(jobs) + footer
+        "html": render_template('newsletters/jobs_newsletter.html', jobs=jobs)
     }
     mailchimp_api.campaigns.content.update(campaign_id=id_camp, data=data_cont)
     mailchimp_api.campaigns.actions.send(campaign_id=id_camp)
@@ -80,8 +76,7 @@ def combined_newsletter(jobs, events):
         raise Exception(resp_camp['title'] + " " + resp_camp['detail'])
 
     data_cont = {
-        "html": 'Hello! <br /><br />' + \
-                events_list(events) + jobs_list(jobs) + footer
+        "html": render_template('newsletters/jobs_newsletter.html', jobs=jobs, events=events)
     }
     mailchimp_api.campaigns.content.update(campaign_id=id_camp, data=data_cont)
     mailchimp_api.campaigns.actions.send(campaign_id=id_camp)
@@ -99,35 +94,3 @@ def send_newsletter():
     if len(jobs) > 0 or len(events) > 0:
         combined_newsletter(jobs, events)
         
-
-# ----------------------------------------------------------
-##  Helpers
-# ----------------------------------------------------------
-
-def events_list(events):
-    if len(events) > 0:
-        return 'The following events have been added this week: ' + \
-                events_to_html_list(events) + 'Click <a href="https://qfinclub.com/events">here</a> ' + \
-                'to see all evenets in full on our website.<br/><br/>'
-    else:
-        return ''
-
-def events_to_html_list(events):
-    text = "<ul>"
-    for event in events:
-        text += "<li><strong>" + event.start_date.strftime('%A, %b %d at %H:%M') +"</strong> - " + event.title + "</li>"
-    return text + "</ul>"
-
-def jobs_list(jobs):
-    if len(jobs):
-        return 'The following jobs have been added this week: ' + \
-                jobs_to_html_list(jobs) + 'Click <a href="https://qfinclub.com/jobs">here</a> ' + \
-                'to see all jobs in full on our website.<br/><br/>'
-    else:
-        return ''
-
-def jobs_to_html_list(jobs):
-    text = "<ul>"
-    for job in jobs:
-        text += "<li>" + job.title + "</li>"
-    return text + "</ul>"

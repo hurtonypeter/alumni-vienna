@@ -5,6 +5,8 @@ from zqfa.tools import redirect_back
 from zqfa.user import user_active_required, admin_required
 from zqfa.worker import tasks
 
+import traceback
+
 bp = Blueprint('admin', __name__)
 
 @bp.route('/admin/newsletters')
@@ -19,5 +21,6 @@ def send_newsletters():
         tasks.send_newsletter()
         flash('Newsletters successfully sent.')
     except Exception as ex:
+        traceback.print_exc()
         flash('Something went wrong! Can not send the newsletters. ' + ex.message)
     return redirect_back()

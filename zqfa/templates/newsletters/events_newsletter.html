@@ -1,0 +1,32 @@
+{% extends "email_base_css_inlined.html" %}
+
+{% block subject -%}
+    QFinClub events newsletter
+{%- endblock %}
+
+{% block content %}
+
+    <h1 class="h1">Hello!</h1>
+
+    <p style="font-size: large;">
+        The following events have been added this week:
+    </p>
+    <ul>
+        {% for event in events %}
+            <li>
+                <strong>{{ event.start_date.strftime('%A, %b %d at %H:%M') }}</strong> 
+                - {{ event.title }}
+            </li>
+        {% endfor %}
+    </ul>
+    <p>
+        Click <a href="https://qfinclub.com/events">here</a> 
+        to see all evenets in full on our website.
+    </p>
+
+    <p>
+        We are looking forward to seeing you again soon!<br/>
+    </p>
+    <p>Best<br/>Your Qfin Club Team</p>
+
+{% endblock %}

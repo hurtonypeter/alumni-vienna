@@ -1,0 +1,31 @@
+{% extends "email_base_css_inlined.html" %}
+
+{% block subject -%}
+    QFinClub jobs newsletter
+{%- endblock %}
+
+{% block content %}
+
+    <h1 class="h1">Hello!</h1>
+
+    <p style="font-size: large;">
+        The following jobs have been added this week
+    </p>
+    <ul>
+        {% for job in jobs %}
+            <li>
+                {{ job.title }}
+            </li>
+        {% endfor %}
+    </ul>
+    <p>
+        Click <a href="https://qfinclub.com/jobs">here</a>
+        to see all jobs in full on our website.
+    </p>
+
+    <p>
+        We are looking forward to seeing you again soon!<br/>
+    </p>
+    <p>Best<br/>Your Qfin Club Team</p>
+
+{% endblock %}

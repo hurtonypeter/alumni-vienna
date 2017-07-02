@@ -17,9 +17,6 @@ from random import randint
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm.exc import MultipleResultsFound
 
-import traceback
-
-
 bp = Blueprint('user', __name__)
 
 linkedin = None
