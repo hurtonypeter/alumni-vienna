@@ -27,14 +27,6 @@ def about():
 def shop():
     return render_template('page/shop.html')
 
-@bp.route('/qf')
-def qf():
-    return render_template('page/qf.html')
-
-@bp.route('/advisory')
-def advisory():
-    return render_template('page/advisory.html')
-
 @bp.route('/terms')
 def terms():
     return render_template('page/terms.html')

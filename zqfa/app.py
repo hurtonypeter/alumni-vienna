@@ -15,11 +15,13 @@ mail = Mail()
 csrf = CsrfProtect()
 
 mailchimp_api = None
+app = None
 
 def create_app():
     print("create app")
     from os import environ
 
+    global app
     app = Flask(__name__)
     SSLify(app)
 
@@ -41,6 +43,9 @@ def create_app():
 
         app.config['MAILCHIMP_USERNAME'] = environ.get('MAILCHIMP_USERNAME')
         app.config['MAILCHIMP_APIKEY'] = environ.get('MAILCHIMP_APIKEY')
+        app.config['MAILCHIMP_EVENTS_NEWSLETTER'] = environ.get('MAILCHIMP_EVENTS_NEWSLETTER')
+        app.config['MAILCHIMP_JOBS_NEWSLETTER'] = environ.get('MAILCHIMP_JOBS_NEWSLETTER')
+        app.config['MAILCHIMP_COMBINED_NEWSLETTER'] = environ.get('MAILCHIMP_COMBINED_NEWSLETTER')
 
         app.config['LINKEDIN_CONSUMER_KEY'] = environ.get('LINKEDIN_CONSUMER_KEY')
         app.config['LINKEDIN_CONSUMER_SECRET'] = environ.get('LINKEDIN_CONSUMER_SECRET')

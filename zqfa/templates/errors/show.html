@@ -1,20 +1,24 @@
-{% extends "base_old.html" %}
+{% extends "base.html" %}
 
 {% block title -%}
     {{ code }} {{ title }} - {{ super() }}
 {%- endblock %}
 
 {% block main %}
-    <div class="wrapper" id="app">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6 col-sm-offset-3">
-                    <div class="page-header">
-                        <h1>{{ code }} {{ title }}</h1>
-                    </div>
-                    <p>{{ message|safe }}.</p>
-                </div>
-            </div>
+<div class="wrapper-404">
+    <div class="content-wrapper">
+
+        <div class="lead-wrapper">
+            <h1 class="lead-404">{{ code }}</h1>
         </div>
-</div>
+
+        <div class="info-wrapper">
+            <p class="info-404">
+                <strong>{{ title }}</strong><br />
+                {{ message|safe }}.
+            </p>
+        </div>
+
+    </div>
+</div><!-- / .wrapper-404 -->
 {% endblock %}

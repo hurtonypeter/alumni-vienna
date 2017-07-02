@@ -52,12 +52,12 @@ def activate(user_id):
         u.activated = True
         db.session.commit()
 
-        msg = Message("ZQFA: Application accepted. Welcome!", recipients=[u.email])
+        msg = Message("Welcome to the QFin Club!", recipients=[u.email])
         msg.html = render_template('members/email_welcome.html', user=u)
         mail.send(msg)
 
         # Subscribe to mailinglists
-        newsletter.subscribe_all(u)
+        #newsletter.subscribe_all(u)
 
         flash('User has been activated, a welcome message has been sent and he has been subscribed to all newsletters.')
     else:

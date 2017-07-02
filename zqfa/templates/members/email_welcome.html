@@ -1,22 +1,22 @@
 {% extends "email_base_css_inlined.html" %}
 
 {% block subject -%}
-    Welcome to the Zurich QF Alumni
+    Welcome to the Qfin Club!
 {%- endblock %}
 
 {% block content %}
 
     <h1 class="h1">Dear {{ user.firstname }}</h1>
 
-    <h2 class="h2">Your application has been checked
-        and you have officially been accepted to the QFC.</h2>
+    <p style="font-size: large;">Your application has been checked
+        and you have officially been accepted to the QFin Club.</p>
     <br>
     Stay tuned for future events and announcement &mdash; we will keep you posted.<br>
     <br>
-    Meanwhile make sure that you check out our <a href="https://alumni-vienna.herokuapp.com/members">member database</a> and the <a href="https://alumni-vienna.herokuapp.com/events">upcoming events</a>.
+    Meanwhile make sure that you check out our <a href="https://qfinclub.com/members">member database</a> and the <a href="https://qfinclub.com/events">upcoming events</a>.
     <br>
     <br>
     Looking forward to seeing you soon<br>
-    <strong>QFC Team</strong>
+    <strong>QFin Club Team</strong>
 
 {% endblock %}

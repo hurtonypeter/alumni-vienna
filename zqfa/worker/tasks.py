@@ -1,7 +1,7 @@
 from mailchimp3 import MailChimp
 from datetime import date, timedelta
 from zqfa.models import Event, Job
-from zqfa.app import mailchimp_api
+from zqfa.app import mailchimp_api, app
 
 import json
 
@@ -19,7 +19,7 @@ def events_newsletter(events):
             "reply_to": reply_to
         },
         "recipients": {
-            "list_id": '5f9ad0f7a9'
+            "list_id": app.config['MAILCHIMP_EVENTS_NEWSLETTER']
         }
     }
     resp_camp = mailchimp_api.campaigns.create(data_camp)
@@ -45,7 +45,7 @@ def jobs_newsletter(jobs):
             "reply_to": reply_to
         },
         "recipients": {
-            "list_id": '65ed5f6380'
+            "list_id": app.config['MAILCHIMP_JOBS_NEWSLETTER']
         }
     }
     resp_camp = mailchimp_api.campaigns.create(data_camp)
@@ -71,7 +71,7 @@ def combined_newsletter(jobs, events):
             "reply_to": reply_to
         },
         "recipients": {
-            "list_id": '4e788e0791'
+            "list_id": app.config['MAILCHIMP_COMBINED_NEWSLETTER']
         }
     }
     resp_camp = mailchimp_api.campaigns.create(data_camp)

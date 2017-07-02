@@ -1,6 +1,6 @@
 import hashlib
 from mailchimp3 import MailChimp
-from zqfa.app import mailchimp_api
+from zqfa.app import mailchimp_api, app
 
 def check_connection():
     try:
@@ -50,9 +50,7 @@ def unsubscribe_all(user):
         unsubscribe(list['id'], user)
 
 def subscribe_all(user):
-    lists = get_lists()
-    for list in lists:
-        subscribe(list['id'], user)
+    subscribe(app.config['MAILCHIMP_COMBINED_NEWSLETTER'], user)
 
 def get_lists():
     lists = mailchimp_api.lists.all(get_all=True, fields = "lists.name,lists.id")
