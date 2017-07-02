@@ -68,59 +68,56 @@ enters his "classof" year.
 
 @bp.route('/become-member', methods=['GET', 'POST'])
 def become_member():
+
+    if current_user.is_authenticated():
+        flash('You are already registered.')
+        redirect(url_for('members.index'))
+
+
+    if 'classof' not in session:
+        form = UserRegistrationForm(request.form, obj=current_user)
+        if not form.validate_on_submit():
+            return render_template('user/become_member.html', form=form)
+        else:
+            session['classof'] = form.classof.data
+
+    if 'linkedin_token' not in session:
+        # Send to Linkedin Auth
+        return redirect(url_for('user.login'))
+
+    linkedin_id = session['linkedin_id']
+
     try:
+        user = User.query.filter_by(linkedin_id=linkedin_id).one()
+    except MultipleResultsFound:
+        flash('There has been an error, please try again later', 'error')
+        return redirect('page.home')
+    except NoResultFound:
+        # User not yet registered, so create it!
+        user = User()
+        # System fields
+        user.registered = datetime.now()
+        user.last_login = datetime.now()
+        # Linkedin fields
+        update_linkedin_fields(user)
+        # ZQFA fields
+        user.classof = session['classof']
+        # Commit to DB
+        db.session.add(user)
+        db.session.commit()
 
-        if current_user.is_authenticated():
-            flash('You are already registered.')
-            redirect(url_for('members.index'))
+        login_user(user, force=True)
+        user.last_login = datetime.now()
+        db.session.commit()
+        session.pop('classof', None)
 
+        # Inform admin
+        zqfa.notifications.admin_notification_new_user(user)
 
-        if 'classof' not in session:
-            form = UserRegistrationForm(request.form, obj=current_user)
-            if not form.validate_on_submit():
-                return render_template('user/become_member.html', form=form)
-            else:
-                session['classof'] = form.classof.data
+        return redirect(url_for('page.success'))
 
-        if 'linkedin_token' not in session:
-            # Send to Linkedin Auth
-            return redirect(url_for('user.login'))
-
-        linkedin_id = session['linkedin_id']
-
-        try:
-            user = User.query.filter_by(linkedin_id=linkedin_id).one()
-        except MultipleResultsFound:
-            flash('There has been an error, please try again later', 'error')
-            return redirect('page.home')
-        except NoResultFound:
-            # User not yet registered, so create it!
-            user = User()
-            # System fields
-            user.registered = datetime.now()
-            user.last_login = datetime.now()
-            # Linkedin fields
-            update_linkedin_fields(user)
-            # ZQFA fields
-            user.classof = session['classof']
-            # Commit to DB
-            db.session.add(user)
-            db.session.commit()
-
-            login_user(user, force=True)
-            user.last_login = datetime.now()
-            db.session.commit()
-            session.pop('classof', None)
-
-            # Inform admin
-            zqfa.notifications.admin_notification_new_user(user)
-
-            return redirect(url_for('page.success'))
-
-        flash('You are already registered.', 'error')
-        return redirect(url_for('members.index'))
-    except: 
-        traceback.print_exc()
+    flash('You are already registered.', 'error')
+    return redirect(url_for('members.index'))
 
 
 def update_linkedin_fields(user, token=None):
