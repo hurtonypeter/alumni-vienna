@@ -8,9 +8,9 @@
 
     <h1 class="h1">Hello!</h1>
 
-    {% if len(events) > 0 %}
+    {% if events %}
         <p style="font-size: large;">
-            The following events have been added this week:
+            The following <strong>events</strong> have been added this week:
         </p>
         <ul>
             {% for event in events %}
@@ -22,13 +22,13 @@
         </ul>
         <p>
             Click <a href="https://qfinclub.com/events">here</a> 
-            to see all evenets in full on our website.<br/>
+            to see all evenets in full on our website.
         </p>
     {% endif %}
 
-    {% if len(jobs) > 0 %}
+    {% if jobs %}
         <p style="font-size: large;">
-            The following jobs have been added this week
+            The following <strong>jobs</strong> have been added this week:
         </p>
         <ul>
             {% for job in jobs %}
@@ -39,7 +39,7 @@
         </ul>
         <p>
             Click <a href="https://qfinclub.com/jobs">here</a>
-            to see all jobs in full on our website.<br/><br/>
+            to see all jobs in full on our website.
         </p>
     {% endif %}
 

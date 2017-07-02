@@ -4,9 +4,7 @@ from datetime import date, timedelta
 from zqfa.models import Event, Job
 from zqfa.app import mailchimp_api, app
 
-
-from_name = "QFinClub"
-reply_to = "hurtony.peter@encosoft.hu"
+from_name = "QFin Club"
 
 def events_newsletter(events):
     data_camp = {
@@ -14,7 +12,7 @@ def events_newsletter(events):
         "settings": {
             "subject_line": "QFinClub events",
             "from_name": from_name,
-            "reply_to": reply_to
+            "reply_to": app.config['MAILCHIMP_REPLY_TO']
         },
         "recipients": {
             "list_id": app.config['MAILCHIMP_EVENTS_NEWSLETTER']
@@ -39,7 +37,7 @@ def jobs_newsletter(jobs):
         "settings": {
             "subject_line": "QFinClub jobs",
             "from_name": from_name,
-            "reply_to": reply_to
+            "reply_to": app.config['MAILCHIMP_REPLY_TO']
         },
         "recipients": {
             "list_id": app.config['MAILCHIMP_JOBS_NEWSLETTER']
@@ -64,7 +62,7 @@ def combined_newsletter(jobs, events):
         "settings": {
             "subject_line": "QFinClub events and jobs",
             "from_name": from_name,
-            "reply_to": reply_to
+            "reply_to": app.config['MAILCHIMP_REPLY_TO']
         },
         "recipients": {
             "list_id": app.config['MAILCHIMP_COMBINED_NEWSLETTER']
@@ -74,9 +72,9 @@ def combined_newsletter(jobs, events):
     id_camp = resp_camp['id']
     if not id_camp:
         raise Exception(resp_camp['title'] + " " + resp_camp['detail'])
-
+    
     data_cont = {
-        "html": render_template('newsletters/jobs_newsletter.html', jobs=jobs, events=events)
+        "html": render_template('newsletters/combined_newsletter.html', jobs=jobs, events=events)
     }
     mailchimp_api.campaigns.content.update(campaign_id=id_camp, data=data_cont)
     mailchimp_api.campaigns.actions.send(campaign_id=id_camp)
