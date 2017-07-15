@@ -30,8 +30,11 @@
 
 .main-demo-hero {
     background-image: url('../images/landing-image.jpg');
-    background-position-x: 50%;
-    background-position-y: 50%;
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 @media (max-width: 992px) {
     .main-demo-hero {
